@@ -1,5 +1,6 @@
 package sep.project;
 
+import sep.project.AdminGuiRender.AdminGui;
 import sep.project.Controllers.RestApiController;
 import sep.project.Controllers.WebPageController;
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
@@ -13,7 +14,7 @@ import spark.Spark;
 
 public class ApplicationStart {
 
-    public static void Main() throws Exception {
+    public static void main(String[] args) throws Exception {
 
         // start web server
         Spark.port(8080);
@@ -24,13 +25,14 @@ public class ApplicationStart {
         PointTradeList pointTradeList = ClovervillePersistenceService.loadTradeList();
         CommunityGreenPoints communityGreenPoints = ClovervillePersistenceService.loadCommunityGreenPoints();
         ClovervilleResidentList clovervilleResidentList = ClovervillePersistenceService.loadClovervilleResidentList();
-        CommunityTaskList communityTaskList = ClovervillePersistenceService.loadCommunityTaskList();
-
+        //CommunityTaskList communityTaskList = ClovervillePersistenceService.loadCommunityTaskList();
+        CommunityTaskList communityTaskList= null;
         // then distribute them across the system
 
         // init the controllers
-        
-        WebPageController webPageController = new WebPageController();
+
+        WebPageController webPageController = new WebPageController(pointTradeList, clovervilleResidentList,
+                communityGreenPoints, communityTaskList);
         webPageController.setupRoutes();
 
         RestApiController restApiController = new RestApiController(pointTradeList, clovervilleResidentList,
@@ -40,5 +42,7 @@ public class ApplicationStart {
         // create Admin user
         Administrator admin = new Administrator("Green Bob");
 
+        // lastly, launch admin gui
+        AdminGui.launch();
     }
 }

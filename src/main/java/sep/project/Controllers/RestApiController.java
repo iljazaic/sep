@@ -51,11 +51,12 @@ public class RestApiController {
                 return clovervilleResidentList.toJsonString();
             });
 
+            /* 
             Spark.get("/communityTasks", (request, response) -> {
                 response.type("application/json");
                 return communityTaskList.toJsonString();
             });
-
+            */
         });
     }
 
