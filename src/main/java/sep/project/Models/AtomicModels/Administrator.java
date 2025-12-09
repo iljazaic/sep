@@ -37,6 +37,9 @@ public class Administrator {
         this.loggedIn = loggedIn;
     }
 
+
+
+    //TODO: let the admin work
     public void addGreenAction(GreenAction action){
 
     }

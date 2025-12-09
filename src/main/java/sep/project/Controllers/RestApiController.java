@@ -27,6 +27,7 @@ public class RestApiController {
     private final PointTradeList pointTradeList;
     private final ClovervilleResidentList clovervilleResidentList;
     private final CommunityGreenPoints communityGreenPoints;
+    
 
     public RestApiController(PointTradeList pointTradeList, ClovervilleResidentList clovervilleResidentList,
             CommunityGreenPoints communityGreenPoints) {
@@ -52,8 +53,8 @@ public class RestApiController {
     }
 
     @GetMapping("/communityTasks")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+    public String getCommunityTasks() {
+        return ;
     }
     
     

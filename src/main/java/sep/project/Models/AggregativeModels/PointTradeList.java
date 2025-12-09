@@ -2,6 +2,7 @@ package sep.project.Models.AggregativeModels;
 
 import java.util.ArrayList;
 
+import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.PointTrade;
 
 public class PointTradeList {
@@ -17,6 +18,11 @@ public class PointTradeList {
 
     public ArrayList<?> getPointTradeList() {
         return this.trades;
+    }
+
+
+    public void executePointTrade(Long secondResidentId){
+        ClovervilleResident ownerResident = 
     }
 
     /**

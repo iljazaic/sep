@@ -90,7 +90,7 @@ public class ClovervillePersistenceService {
     /**
      * Loads from persistence
      * 
-     * @return the points object
+     * @return the resident list object
      */
     public static ClovervilleResidentList loadClovervilleResidentList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -102,7 +102,8 @@ public class ClovervillePersistenceService {
         ArrayList<ClovervilleResident> jsonList = mapper.readValue(jsonFile,
                 new TypeReference<ArrayList<ClovervilleResident>>() {
                 });
-        list.
+        list.setResidentList(jsonList);
+        return list;
     }
 
 }
