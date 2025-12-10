@@ -5,5 +5,11 @@ public class CommunityTask {
     private int pointReward;
 
 
+
+
+    public CommunityTask(){};
+    public String toJsonString(){
+        return "Community Task";
+    }
     
 }

@@ -22,7 +22,7 @@ public class PointTradeList {
 
 
     public void executePointTrade(Long secondResidentId){
-        ClovervilleResident ownerResident = 
+        //ClovervilleResident ownerResident = 
     }
 
     /**

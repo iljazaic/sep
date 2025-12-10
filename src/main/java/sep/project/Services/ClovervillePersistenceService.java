@@ -20,12 +20,13 @@ import sep.project.Models.AtomicModels.PointTrade;
  * Contains logic for loading shit from persistence; should be called on app
  * startup;
  * IS STATIC
+ * IS COMPLETE
  */
 public class ClovervillePersistenceService {
     public ClovervillePersistenceService() {
     };
 
-    private final static String pathToStorageDirectory = "/lib/storage";
+    private final static String pathToStorageDirectory = "./lib/storage";
 
     /**
      * Converts that shit to a string array and saves
@@ -60,6 +61,17 @@ public class ClovervillePersistenceService {
     }
 
     /**
+     * Converts that shit to a string array and saves
+     * 
+     * @param residents
+     * @throws Exception
+     */
+    public static void saveClovervilleResidentList(ClovervilleResidentList residents) throws Exception {
+        String jsonList = residents.toJsonString();
+        writeStringToJsonFile(jsonList, "Residents.json");
+    }
+
+    /**
      * Loads from persistence
      * 
      * @return the trade list
@@ -83,8 +95,10 @@ public class ClovervillePersistenceService {
         ObjectMapper mapper = new ObjectMapper();
 
         File jsonFile = new File(pathToStorageDirectory.concat("/CommunityGreenPoints.json"));
-        return mapper.readValue(jsonFile, new TypeReference<ArrayList<CommunityGreenPoints>>() {
-        }).get(0);
+        ArrayList<CommunityGreenPoints> list = mapper.readValue(jsonFile,
+                new TypeReference<ArrayList<CommunityGreenPoints>>() {
+                });
+        return !list.isEmpty() ? list.get(0) : new CommunityGreenPoints(0);
     }
 
     /**
@@ -107,3 +121,10 @@ public class ClovervillePersistenceService {
     }
 
 }
+
+// load residents *
+// save residents *
+// load trades *
+// save trades *
+// load points*
+// save points *
