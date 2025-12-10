@@ -7,9 +7,8 @@ import java.io.IOException;
 public class WebPageService {
     
     /**
-     * Reads the content of a file located in the resources directory.
-     * @param fileName The path to the file relative to the resources root.
-     * @return The file content as a single String.
+     * Reads and spits out file text
+     * honestly just a helper function dont pay too much attention
      */
     public static String renderHtml(String fileName) {
         try {

@@ -5,6 +5,7 @@ import sep.project.Models.AggregativeModels.CommunityTaskList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
+import sep.project.Models.AtomicModels.GreenAction;
 import sep.project.Services.WebPageService;
 import spark.Spark; // Required for SparkJava routing
 
@@ -25,7 +26,8 @@ public class WebPageController {
     private final CommunityGreenPoints communityGreenPoints;
     private final CommunityTaskList communityTaskList;
 
-    private final String pathToHtmlFiles = "src/main/resources";
+    //private final String pathToHtmlFiles = "src/main/resources";
+    private final String pathToStaticFiles = "src/main/resources/static";
 
     public WebPageController(PointTradeList pointTradeList, ClovervilleResidentList clovervilleResidentList,
             CommunityGreenPoints communityGreenPoints, CommunityTaskList communityTaskList) {
@@ -36,11 +38,33 @@ public class WebPageController {
     }
 
     public void setupRoutes() {
+
+        Spark.staticFiles.location(pathToStaticFiles);
+
         Spark.path("/", () -> {
 
             Spark.get("/", (request, response) -> {
                 response.type("text/html");
                 return WebPageService.renderHtml("index.html");
+            });
+            Spark.get("/register-green-action", (request,response)->{
+                response.type("text/html");
+
+
+
+
+
+
+                String userName = request.queryParams("userName");
+                String actionDesc = request.queryParams("description");
+                
+
+                GreenAction action = new GreenAction(actionDesc, 0);
+                
+
+                clovervilleResidentList.addResident(new ClovervilleResident(userName));
+
+                return WebPageService.renderHtml("createUser.html");
             });
         });
     }

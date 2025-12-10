@@ -28,6 +28,11 @@ public class ClovervilleResidentList {
         return null;
     }
 
+    public void addResident(ClovervilleResident resident){
+        residentList.add(resident);
+        setResidentList(residentList);
+    }
+
     public String toJsonString() {
         if (this.residentList.isEmpty())
             return "[]";
