@@ -6,7 +6,6 @@ import sep.project.Controllers.WebPageController;
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.CommunityTaskList;
 import sep.project.Models.AggregativeModels.PointTradeList;
-import sep.project.Models.AtomicModels.Administrator;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
 import sep.project.Services.ClovervillePersistenceService;
 
@@ -40,7 +39,7 @@ public class ApplicationStart {
         restApiController.setupRoutes();
 
         // create Admin user
-        Administrator admin = new Administrator("Green Bob");
+        // admin = new Administrator("Green Bob");
 
         // lastly, launch admin gui
         AdminGui.launch();
