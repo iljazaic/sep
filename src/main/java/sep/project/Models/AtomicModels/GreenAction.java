@@ -22,7 +22,7 @@ public class GreenAction {
     // to persist that bitch
     public String toJsonString() {
         return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
-                .formatted(actionId, description, pointValue, approved, userId);
+                .formatted(Long.toString(actionId), description, Integer.toString(pointValue), Boolean.toString(approved), Long.toString(userId));
     }
 
     public Long getUserId() {

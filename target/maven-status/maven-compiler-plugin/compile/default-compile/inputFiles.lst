@@ -1,9 +1,12 @@
-C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\AdminGuiRender\AdminGui.java
+C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\AdminGuiRender\AdminUIApp.java
+C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\AdminGuiRender\AdminUILauncher.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\ApplicationStart.java
+C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Controllers\AdminUIController.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Controllers\RestApiController.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Controllers\WebPageController.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AggregativeModels\ClovervilleResidentList.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AggregativeModels\CommunityTaskList.java
+C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AggregativeModels\GreenActionList.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AggregativeModels\PointTradeList.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AtomicModels\ClovervilleResident.java
 C:\Users\iljaz\Desktop\sep_proj\src\main\java\sep\project\Models\AtomicModels\CommunityGreenPoints.java

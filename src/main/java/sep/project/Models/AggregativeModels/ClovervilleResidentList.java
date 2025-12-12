@@ -3,7 +3,6 @@ package sep.project.Models.AggregativeModels;
 import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.ClovervilleResident;
-import sep.project.Models.AtomicModels.PointTrade;
 
 public class ClovervilleResidentList {
     private ArrayList<ClovervilleResident> residentList;
@@ -12,7 +11,7 @@ public class ClovervilleResidentList {
     };
 
     public void setResidentList(ArrayList<ClovervilleResident> list) {
-        this.residentList = residentList;
+        this.residentList = list;
     }
 
     public ArrayList<ClovervilleResident> getResidentList() {
@@ -28,9 +27,14 @@ public class ClovervilleResidentList {
         return null;
     }
 
-    public void addResident(ClovervilleResident resident){
+    public void addResident(ClovervilleResident resident) {
         residentList.add(resident);
         setResidentList(residentList);
+    }
+
+    public void remoevResident(ClovervilleResident resident) {
+        if (residentList.contains(resident))
+            residentList.remove(resident);
     }
 
     public String toJsonString() {
@@ -50,5 +54,14 @@ public class ClovervilleResidentList {
             }
         }
         return jsonStringBuilder.toString();
+    }
+
+    public ClovervilleResident getClovervilleResidentByName(String name) {
+        for (ClovervilleResident clovervilleResident : residentList) {
+            if (clovervilleResident.getName().equals(name)) {
+                return clovervilleResident;
+            }
+        }
+        return null;
     }
 }

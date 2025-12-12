@@ -18,6 +18,14 @@ public class GreenActionList {
         return this.list;
     }
 
+
+    public void addGreenAction(GreenAction action){
+        this.list.add(action);
+        
+    }
+
+
+
     public String toJsonString() {
         if (this.list.isEmpty())
             return "[]";

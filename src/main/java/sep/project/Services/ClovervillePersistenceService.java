@@ -6,14 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
+import sep.project.Models.AggregativeModels.GreenActionList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
+import sep.project.Models.AtomicModels.GreenAction;
 import sep.project.Models.AtomicModels.PointTrade;
 
 /**
@@ -120,6 +123,24 @@ public class ClovervillePersistenceService {
         return list;
     }
 
+    public static void saveClovervilleGreenActionList(GreenActionList greenActionList) throws Exception {
+        String jsonList = greenActionList.toJsonString();
+        writeStringToJsonFile(jsonList, "/GreenActions.json");
+    }
+
+    public static GreenActionList loadClovervilleGreenActionList() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        File jsonFile = new File(pathToStorageDirectory.concat("/GreenActions.json"));
+
+        GreenActionList list = new GreenActionList();
+
+        ArrayList<GreenAction> jsonList = mapper.readValue(jsonFile,
+                new TypeReference<ArrayList<GreenAction>>() {
+                });
+        list.setGreenActionList(jsonList);
+        return list;
+    }
 }
 
 // load residents *
@@ -128,3 +149,5 @@ public class ClovervillePersistenceService {
 // save trades *
 // load points*
 // save points *
+// load greenactions *
+// save greenactions *

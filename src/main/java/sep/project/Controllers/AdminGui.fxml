@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sep.project.AdminUIController">
+   <children>
+      <TabPane layoutX="14.0" layoutY="14.0" prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        
+         <Tab text="Residents">
+            <content>
+               <VBox spacing="10.0" padding="$_padding$">
+                  <children>
+                     <Label styleClass="header-label" text="Cloverville Residents Management" />
+                     <TableView fx:id="residentTable" prefHeight="400.0" prefWidth="200.0">
+                       <columns>
+                         <TableColumn fx:id="residentIdCol" prefWidth="100.0" text="ID" />
+                         <TableColumn fx:id="residentNameCol" prefWidth="200.0" text="Name" />
+                         <TableColumn fx:id="residentPointsCol" prefWidth="150.0" text="Current Points" />
+                       </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                     </TableView>
+                     <HBox spacing="10.0">
+                        <Button onAction="#handleCreateUser" text="Create New Resident" />
+                        <Button onAction="#handleRemoveUser" text="Remove Selected Resident" />
+                        <Button onAction="#handleEditPoints" text="Edit Resident Points" />
+                     </HBox>
+                  </children>
+               </VBox>
+            </content>
+         </Tab>
+         
+         <Tab text="Unapproved Actions">
+             <content>
+               <VBox spacing="10.0" padding="$_padding$">
+                   <Label styleClass="header-label" text="Unapproved Green Actions" />
+                   <TableView fx:id="greenActionTable" prefHeight="400.0" prefWidth="200.0">
+                       <columns>
+                           <TableColumn fx:id="actionIdCol" prefWidth="100.0" text="Action ID" />
+                           <TableColumn fx:id="actionUserIdCol" prefWidth="100.0" text="Resident ID" />
+                           <TableColumn fx:id="actionDescCol" prefWidth="400.0" text="Description" />
+                           <TableColumn fx:id="actionPointsCol" prefWidth="150.0" text="Point Value" />
+                       </columns>
+                       <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                       </columnResizePolicy>
+                   </TableView>
+                   <HBox spacing="10.0">
+                       <Button onAction="#handleApproveAction" text="Approve Selected Action" />
+                       <Button onAction="#handleDenyAction" text="Deny Selected Action" />
+                   </HBox>
+               </VBox>
+           </content>
+         </Tab>
+
+         <Tab text="Community Tasks">
+            <content>
+                <VBox spacing="10.0" padding="$_padding$">
+                    <Label styleClass="header-label" text="Community Tasks Management" />
+                    <TableView fx:id="taskTable" prefHeight="400.0" prefWidth="200.0">
+                       <columns>
+                         <TableColumn fx:id="taskDescCol" prefWidth="600.0" text="Description" />
+                         <TableColumn fx:id="taskRewardCol" prefWidth="200.0" text="Point Reward" />
+                       </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                    <HBox spacing="10.0">
+                        <Button onAction="#handleCreateTask" text="Create New Task" />
+                        <Button onAction="#handleRemoveTask" text="Remove Selected Task" />
+                    </HBox>
+                </VBox>
+            </content>
+         </Tab>
+         
+         <Tab text="Point Trades">
+             <content>
+                <VBox spacing="10.0" padding="$_padding$">
+                    <Label styleClass="header-label" text="Point Trade Management" />
+                    <TableView fx:id="tradeTable" prefHeight="400.0" prefWidth="200.0">
+                        <columns>
+                            <TableColumn fx:id="tradeIdCol" prefWidth="100.0" text="Trade ID" />
+                            <TableColumn fx:id="tradeNameCol" prefWidth="200.0" text="Name" />
+                            <TableColumn fx:id="tradeCreatorIdCol" prefWidth="100.0" text="Creator ID" />
+                            <TableColumn fx:id="tradePointsCol" prefWidth="150.0" text="Points" />
+                            <TableColumn fx:id="tradeDescCol" prefWidth="250.0" text="Description" />
+                        </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                    <HBox spacing="10.0">
+                        <Button onAction="#handleRemoveTrade" text="Remove Selected Trade" />
+                    </HBox>
+                </VBox>
+            </content>
+         </Tab>
+         
+         <Tab text="Community Points">
+            <content>
+                <VBox spacing="20.0" padding="$_padding$">
+                    <Label styleClass="header-label" text="Community Green Points" />
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Current Total Points:" />
+                        <Label fx:id="communityPointsLabel" text="[Loading...]" styleClass="points-value" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Set New Total Points:" />
+                        <TextField fx:id="newPointsField" promptText="Enter new value" />
+                        <Button onAction="#handleSetCommunityPoints" text="Update Points" />
+                    </HBox>
+                    <Label fx:id="pointsStatusLabel" text="" />
+                </VBox>
+            </content>
+         </Tab>
+      </TabPane>
+   </children>
+   <VBox.margin>
+       <Insets fx:id="_padding" top="20.0" right="20.0" bottom="20.0" left="20.0" />
+   </VBox.margin>
+</AnchorPane>

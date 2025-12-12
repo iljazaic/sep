@@ -31,4 +31,20 @@ public class CommunityTaskList {
         return jsonStringBuilder.toString();
     };
 
+
+    public void addCommunityTask(CommunityTask task){
+        this.taskList.add(task);
+    }
+
+
+    public void voidRemoveTaskList(CommunityTask task){
+        for (CommunityTask communityTask : taskList) {
+            if(task.equals(communityTask)){
+                taskList.remove(task);
+            }
+        }
+    }
+
+
+
 }
