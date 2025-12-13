@@ -1,7 +1,7 @@
 package sep.project.AdminGuiRender; // Create a package for UI launching/hosting
 
 import javafx.application.Application;
-
+import sep.project.Controllers.AdminUIController;
 // Import your model lists
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.GreenActionList;
@@ -22,7 +22,7 @@ public class AdminUILauncher {
     public static CommunityTaskList communityTaskList;
     public static PointTradeList tradeList;
     public static CommunityGreenPoints communityPoints;
-
+    public static AdminUIController adminUIController;
     /**
      * The method your main application will call to start the Admin UI.
      * * @param residentList The single instance of ClovervilleResidentList.
@@ -36,17 +36,15 @@ public class AdminUILauncher {
             GreenActionList greenActionList,
             CommunityTaskList communityTaskList,
             PointTradeList tradeList,
-            CommunityGreenPoints communityPoints) {
+            CommunityGreenPoints communityPoints,
+            AdminUIController adminUIController) {
 
-        // 1. Store the persistent instances in the static fields
         AdminUILauncher.residentList = residentList;
         AdminUILauncher.greenActionList = greenActionList;
         AdminUILauncher.communityTaskList = communityTaskList;
         AdminUILauncher.tradeList = tradeList;
         AdminUILauncher.communityPoints = communityPoints;
 
-        // 2. Launch the JavaFX Application
-        // Pass the AdminUI class to be instantiated by the JavaFX runtime
         Application.launch(AdminUIApp.class);
     }
 }

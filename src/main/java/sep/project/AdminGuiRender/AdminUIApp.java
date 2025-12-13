@@ -23,7 +23,7 @@ import sep.project.Models.AtomicModels.GreenAction;
 
 public class AdminUIApp extends Application {
 
-    // IMPORTANT: In your actual application, these fields would hold the 
+    // IMPORTANT: In your actual application, these fields would hold the
     // instances returned by your persistence layer (e.g., JSON file loaders).
     private ClovervilleResidentList residentList;
     private GreenActionList greenActionList;
@@ -37,47 +37,57 @@ public class AdminUIApp extends Application {
         // REPLACE THIS BLOCK with your actual file loading logic.
         residentList = new ClovervilleResidentList();
         residentList.setResidentList(new ArrayList<>());
-        
+
         greenActionList = new GreenActionList();
         greenActionList.setGreenActionList(new ArrayList<>());
-        
+
         // Example resident for ID usage
         ClovervilleResident adminUser = new ClovervilleResident("Admin");
         residentList.addResident(adminUser);
-        
+
         // Example unapproved action
         greenActionList.addGreenAction(new GreenAction("Planted tree", 100, adminUser.getResidentId()));
 
         // Note: CommunityTaskList constructor takes ArrayList<CommunityTask>
         communityTaskList = new CommunityTaskList(new ArrayList<>());
-        
+
         tradeList = new PointTradeList();
-        
+
         communityPoints = new CommunityGreenPoints(5000);
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUI.fxml"));
-            
+
+            FXMLLoader loader = new FXMLLoader(
+                    AdminUIApp.class.getResource(
+                            "/local/AdminUI.fxml"));
             // --- 2. Set the Controller Factory ---
             // This tells the FXMLLoader how to construct the AdminUIController,
             // allowing us to pass our pre-loaded, single-instance models.
-            loader.setControllerFactory(c -> {
-                if (c == AdminUIController.class) {
-                    return new AdminUIController(
-                        residentList, 
-                        greenActionList, 
-                        communityTaskList, 
-                        tradeList, 
-                        communityPoints
-                    );
-                }
-                // Use default factory for other controllers
-                try {
-                    return c.getDeclaredConstructor().newInstance();
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not create controller", e);
-                }
-            });
+            //loader.setControllerFactory(c -> {
+            //    if (c == AdminUIController.class) {
+            //        return new AdminUIController(
+            //                residentList,
+            //                greenActionList,
+            //                communityTaskList,
+            //                tradeList,
+            //                communityPoints);
+            //    }
+            //    // Use default factory for other controllers
+            //    try {
+            //        return c.getDeclaredConstructor().newInstance();
+            //    } catch (Exception e) {
+            //        throw new RuntimeException("Could not create controller", e);
+            //    }
+            //});
+
+            AdminUIController controller = new AdminUIController(
+                    residentList,
+                    greenActionList,
+                    communityTaskList,
+                    tradeList,
+                    communityPoints);
+
+            loader.setController(controller);
 
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -89,5 +99,5 @@ public class AdminUIApp extends Application {
             e.printStackTrace();
         }
     }
-    
+
 }

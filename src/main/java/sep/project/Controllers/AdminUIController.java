@@ -1,4 +1,4 @@
-package sep.project.Controllers; // Adjust package as necessary
+package sep.project.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,58 +9,44 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
-// Assuming the AtomicModels are available
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.GreenAction;
 import sep.project.Models.AtomicModels.CommunityTask;
 import sep.project.Models.AtomicModels.PointTrade;
-// Assuming the AggregativeModels are available or you have a service layer
+
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.GreenActionList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AggregativeModels.CommunityTaskList;
-import sep.project.Models.AtomicModels.CommunityGreenPoints; // Assuming this model will be used
+import sep.project.Models.AtomicModels.CommunityGreenPoints;
 
 public class AdminUIController {
-
-// === Model/Service Instances (Final, Injected via Constructor) ===
     private final ClovervilleResidentList residentList;
     private final GreenActionList greenActionList;
     private final CommunityTaskList communityTaskList;
     private final PointTradeList tradeList;
     private final CommunityGreenPoints communityPoints;
-
-    // === FXML Components for Residents Tab ===
     @FXML private TableView<ClovervilleResident> residentTable;
     @FXML private TableColumn<ClovervilleResident, Long> residentIdCol;
     @FXML private TableColumn<ClovervilleResident, String> residentNameCol;
-    @FXML private TableColumn<ClovervilleResident, Integer> residentPointsCol; // Assuming resident has a points field
-
-    // === FXML Components for Green Actions Tab ===
+    @FXML private TableColumn<ClovervilleResident, Integer> residentPointsCol;
     @FXML private TableView<GreenAction> greenActionTable;
     @FXML private TableColumn<GreenAction, Long> actionIdCol;
     @FXML private TableColumn<GreenAction, Long> actionUserIdCol;
     @FXML private TableColumn<GreenAction, String> actionDescCol;
     @FXML private TableColumn<GreenAction, Integer> actionPointsCol;
-
-    // === FXML Components for Community Tasks Tab ===
     @FXML private TableView<CommunityTask> taskTable;
     @FXML private TableColumn<CommunityTask, String> taskDescCol;
     @FXML private TableColumn<CommunityTask, Integer> taskRewardCol;
-
-    // === FXML Components for Point Trades Tab ===
     @FXML private TableView<PointTrade> tradeTable;
     @FXML private TableColumn<PointTrade, Long> tradeIdCol;
     @FXML private TableColumn<PointTrade, String> tradeNameCol;
     @FXML private TableColumn<PointTrade, Long> tradeCreatorIdCol;
     @FXML private TableColumn<PointTrade, Integer> tradePointsCol;
     @FXML private TableColumn<PointTrade, String> tradeDescCol;
-
-    // === FXML Components for Community Points Tab ===
     @FXML private Label communityPointsLabel;
     @FXML private TextField newPointsField;
     @FXML private Label pointsStatusLabel;
-
 
     public AdminUIController(
             ClovervilleResidentList residentList,
@@ -79,14 +65,12 @@ public class AdminUIController {
 
 
     /**
-     * Called by FXMLLoader to initialize the controller.
+     * init the controller
      */
     @FXML
     public void initialize() {
-        // --- Simulate Initial Data Load (Replace with actual loading logic) ---
         simulateInitialData();
         
-        // --- Residents Table Setup ---
         residentIdCol.setCellValueFactory(new PropertyValueFactory<>("residentId"));
         residentNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         // NOTE: ClovervilleResident.java does NOT have a 'points' field, this requires a modification

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import sep.project.AdminGuiRender.AdminUIApp;
 import sep.project.AdminGuiRender.AdminUILauncher;
+import sep.project.Controllers.AdminUIController;
 import sep.project.Controllers.RestApiController;
 import sep.project.Controllers.WebPageController;
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
@@ -49,13 +50,17 @@ public class ApplicationStart {
         RestApiController restApiController = new RestApiController(pointTradeList, clovervilleResidentList,
                 communityGreenPoints, communityTaskList);
         restApiController.setupRoutes();
+
+        AdminUIController adminUIController = new AdminUIController(clovervilleResidentList, greenActionList, communityTaskList, pointTradeList, communityGreenPoints);
+
         // lastly, launch admin gui
         AdminUILauncher.startAdminUI(
                 clovervilleResidentList,
                 greenActionList,
                 communityTaskList,
                 pointTradeList,
-                communityGreenPoints
+                communityGreenPoints,
+                adminUIController
         );
     }
 }
