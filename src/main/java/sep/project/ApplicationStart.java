@@ -19,41 +19,42 @@ import spark.Spark;
 
 public class ApplicationStart {
 
-    public static void main(String[] args) throws Exception {
-        //start web server obv
-        Spark.port(8080);
+        public static void main(String[] args) throws Exception {
+                // start web server obv
+                Spark.port(8080);
+                Spark.staticFileLocation("/static");
+                // pull everything from persistence and init all the necessary models
 
-        // pull everything from persistence and init all the necessary models
+                // first pull the stuff we persist;
+                PointTradeList pointTradeList = ClovervillePersistenceService.loadTradeList();
+                CommunityGreenPoints communityGreenPoints = ClovervillePersistenceService.loadCommunityGreenPoints();
+                ClovervilleResidentList clovervilleResidentList = ClovervillePersistenceService
+                                .loadClovervilleResidentList();
+                CommunityTaskList communityTaskList = null;
 
-        // first pull the stuff we persist;
-        PointTradeList pointTradeList = ClovervillePersistenceService.loadTradeList();
-        CommunityGreenPoints communityGreenPoints = ClovervillePersistenceService.loadCommunityGreenPoints();
-        ClovervilleResidentList clovervilleResidentList = ClovervillePersistenceService.loadClovervilleResidentList();
-        CommunityTaskList communityTaskList = null;
+                GreenActionList greenActionList = ClovervillePersistenceService.loadClovervilleGreenActionList();
+                // then distribute them across the system
 
-        GreenActionList greenActionList = ClovervillePersistenceService.loadClovervilleGreenActionList();
-        // then distribute them across the system
+                // init the controllers
+                // this is nonsense ofc
+                WebPageController webPageController = new WebPageController(pointTradeList, clovervilleResidentList,
+                                communityGreenPoints, communityTaskList, greenActionList);
+                webPageController.setupRoutes();
 
-        // init the controllers
-        //this is nonsense ofc
-        WebPageController webPageController = new WebPageController(pointTradeList, clovervilleResidentList,
-                communityGreenPoints, communityTaskList, greenActionList);
-        webPageController.setupRoutes();
+                RestApiController restApiController = new RestApiController(pointTradeList, clovervilleResidentList,
+                                communityGreenPoints, communityTaskList);
+                restApiController.setupRoutes();
 
-        RestApiController restApiController = new RestApiController(pointTradeList, clovervilleResidentList,
-                communityGreenPoints, communityTaskList);
-        restApiController.setupRoutes();
+                AdminUIController adminUIController = new AdminUIController(clovervilleResidentList, greenActionList,
+                                communityTaskList, pointTradeList, communityGreenPoints);
 
-        AdminUIController adminUIController = new AdminUIController(clovervilleResidentList, greenActionList, communityTaskList, pointTradeList, communityGreenPoints);
-
-        // lastly, launch admin gui
-        AdminUILauncher.startAdminUI(
-                clovervilleResidentList,
-                greenActionList,
-                communityTaskList,
-                pointTradeList,
-                communityGreenPoints,
-                adminUIController
-        );
-    }
+                // lastly, launch admin gui
+                AdminUILauncher.startAdminUI(
+                                clovervilleResidentList,
+                                greenActionList,
+                                communityTaskList,
+                                pointTradeList,
+                                communityGreenPoints,
+                                adminUIController);
+        }
 }

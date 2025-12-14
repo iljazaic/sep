@@ -52,6 +52,10 @@ public class WebPageController {
                 response.type("text/html");
                 return WebPageService.renderHtml("index.html");
             });
+            Spark.get("/about", (request, response) -> {
+                response.type("text/html");
+                return WebPageService.renderHtml("aboutus.html");
+            });
             Spark.get("/register-green-action", (request, response) -> {
                 response.type("text/html");
 
