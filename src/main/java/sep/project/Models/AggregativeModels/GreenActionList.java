@@ -3,9 +3,10 @@ package sep.project.Models.AggregativeModels;
 import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.GreenAction;
+import sep.project.Models.Interfaces.JsonManager;
 import sep.project.Services.ClovervillePersistenceService;
 
-public class GreenActionList {
+public class GreenActionList implements JsonManager {
     private ArrayList<GreenAction> list;
 
     public GreenActionList() {
@@ -19,15 +20,13 @@ public class GreenActionList {
         return this.list;
     }
 
-
-    public void addGreenAction(GreenAction action) throws Exception{
+    public void addGreenAction(GreenAction action) throws Exception {
         this.list.add(action);
         ClovervillePersistenceService.saveClovervilleGreenActionList(this);
     }
 
-
-
-    public String toJsonString() {
+    @Override
+    public String toJsonString() throws Exception {
         if (this.list.isEmpty())
             return "[]";
 

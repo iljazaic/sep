@@ -6,18 +6,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
+import sep.project.Models.AggregativeModels.CommunityTaskList;
 import sep.project.Models.AggregativeModels.GreenActionList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
+import sep.project.Models.AtomicModels.CommunityTask;
 import sep.project.Models.AtomicModels.GreenAction;
 import sep.project.Models.AtomicModels.PointTrade;
+import sep.project.Models.Interfaces.JsonManager;
 
 /**
  * Contains logic for loading shit from persistence; should be called on app
@@ -47,11 +53,6 @@ public class ClovervillePersistenceService {
                 StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public static void saveTradeList(PointTradeList list) throws Exception {
-        String jsonList = list.toJsonString();
-        writeStringToJsonFile(jsonList, "Trades.json");
-    }
-
     /**
      * Converts that shit to a string array and saves
      * 
@@ -61,17 +62,6 @@ public class ClovervillePersistenceService {
     public static void saveCommunityPoints(CommunityGreenPoints points) throws Exception {
         String jsonList = points.toJsonString();
         writeStringToJsonFile(jsonList, "CommunityGreenPoints.json");
-    }
-
-    /**
-     * Converts that shit to a string array and saves
-     * 
-     * @param residents
-     * @throws Exception
-     */
-    public static void saveClovervilleResidentList(ClovervilleResidentList residents) throws Exception {
-        String jsonList = residents.toJsonString();
-        writeStringToJsonFile(jsonList, "Residents.json");
     }
 
     /**
@@ -123,11 +113,6 @@ public class ClovervillePersistenceService {
         return list;
     }
 
-    public static void saveClovervilleGreenActionList(GreenActionList greenActionList) throws Exception {
-        String jsonList = greenActionList.toJsonString();
-        writeStringToJsonFile(jsonList, "/GreenActions.json");
-    }
-
     public static GreenActionList loadClovervilleGreenActionList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -141,6 +126,44 @@ public class ClovervillePersistenceService {
         list.setGreenActionList(jsonList);
         return list;
     }
+
+    public static CommunityTaskList loadCommunityTasks() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        File jsonFile = new File(pathToStorageDirectory.concat("/CommunityTasks.json"));
+
+        CommunityTaskList list = new CommunityTaskList();
+
+        ArrayList<CommunityTask> jsonList = mapper.readValue(jsonFile,
+                new TypeReference<ArrayList<CommunityTask>>() {
+                });
+        list.setCommuntyTaskList(jsonList);
+        return list;
+    }
+
+    /**
+     * general saving method makes the rest obsolete
+     * @param listObject to save (must be aggregative class)
+     * @throws Exception (to shut up the jvm)
+     * 
+     */
+    public static void saveList(Object listObject) throws Exception {
+        List<Class> allowedClasses = new ArrayList<>();
+        allowedClasses.add(CommunityTaskList.class);
+        allowedClasses.add(GreenActionList.class);
+        allowedClasses.add(ClovervilleResidentList.class);
+        allowedClasses.add(PointTradeList.class);
+        allowedClasses.add(CommunityGreenPoints.class);
+        if (allowedClasses.contains(listObject.getClass())) {
+            String jsonList = ((JsonManager) listObject).toJsonString();
+            writeStringToJsonFile(jsonList, "/%s.json".formatted(listObject.getClass().getName()));
+        } else {
+            return;
+        }
+    }
+
+
+    
 }
 
 // load residents *
@@ -151,3 +174,5 @@ public class ClovervillePersistenceService {
 // save points *
 // load greenactions *
 // save greenactions *
+// load community actions
+// save community actions

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.PointTrade;
+import sep.project.Models.Interfaces.JsonManager;
 
-public class PointTradeList {
+public class PointTradeList implements JsonManager {
     private ArrayList<PointTrade> trades;
 
     public PointTradeList() {
@@ -20,9 +21,8 @@ public class PointTradeList {
         return this.trades;
     }
 
-
-    public void executePointTrade(Long secondResidentId){
-        //ClovervilleResident ownerResident = 
+    public void executePointTrade(Long secondResidentId) {
+        // ClovervilleResident ownerResident =
     }
 
     /**
@@ -30,8 +30,9 @@ public class PointTradeList {
      * 
      * @return json formatted string :
      *         formatted as array with objects
-     * @throws Exception idk why but surrount with try catch
+     * @throws Exception 
      */
+    @Override
     public String toJsonString() throws Exception {
         if (this.trades.isEmpty())
             return "[]";

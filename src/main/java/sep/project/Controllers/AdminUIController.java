@@ -136,7 +136,8 @@ public class AdminUIController {
         // passed in the constructor
         // Assuming you can get the list from the CommunityTaskList instance.
         // For now, returning an empty list for safety.
-        return FXCollections.observableArrayList();
+
+        return FXCollections.observableArrayList(communityTaskList.getCommunityTasks());
     }
 
     private ObservableList<PointTrade> getObservableTrades() {

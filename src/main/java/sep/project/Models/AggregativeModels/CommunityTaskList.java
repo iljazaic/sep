@@ -2,17 +2,41 @@ package sep.project.Models.AggregativeModels;
 
 import java.util.ArrayList;
 
-import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.CommunityTask;
+import sep.project.Models.Interfaces.JsonManager;
 
-public class CommunityTaskList {
+public class CommunityTaskList implements JsonManager {
     private ArrayList<CommunityTask> taskList;
 
     public CommunityTaskList(ArrayList<CommunityTask> list) {
         this.taskList = list;
     }
 
-    public String toJsonString() {
+    public CommunityTaskList() {
+    };
+
+    public void addCommunityTask(CommunityTask task) {
+        this.taskList.add(task);
+    }
+
+    public ArrayList<CommunityTask> getCommunityTasks() {
+        return taskList;
+    }
+
+    public void setCommuntyTaskList(ArrayList<CommunityTask> list) {
+        this.taskList = list;
+    }
+
+    public void voidRemoveTaskList(CommunityTask task) {
+        for (CommunityTask communityTask : taskList) {
+            if (task.equals(communityTask)) {
+                taskList.remove(task);
+            }
+        }
+    }
+
+    @Override
+    public String toJsonString() throws Exception {
         if (this.taskList.isEmpty())
             return "[]";
 
@@ -30,21 +54,5 @@ public class CommunityTaskList {
         }
         return jsonStringBuilder.toString();
     };
-
-
-    public void addCommunityTask(CommunityTask task){
-        this.taskList.add(task);
-    }
-
-
-    public void voidRemoveTaskList(CommunityTask task){
-        for (CommunityTask communityTask : taskList) {
-            if(task.equals(communityTask)){
-                taskList.remove(task);
-            }
-        }
-    }
-
-
 
 }

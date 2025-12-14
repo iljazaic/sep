@@ -3,8 +3,9 @@ package sep.project.Models.AggregativeModels;
 import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.ClovervilleResident;
+import sep.project.Models.Interfaces.JsonManager;
 
-public class ClovervilleResidentList {
+public class ClovervilleResidentList implements JsonManager {
     private ArrayList<ClovervilleResident> residentList;
 
     public ClovervilleResidentList() {
@@ -37,7 +38,17 @@ public class ClovervilleResidentList {
             residentList.remove(resident);
     }
 
-    public String toJsonString() {
+    public ClovervilleResident getClovervilleResidentByName(String name) {
+        for (ClovervilleResident clovervilleResident : residentList) {
+            if (clovervilleResident.getName().equals(name)) {
+                return clovervilleResident;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toJsonString() throws Exception {
         if (this.residentList.isEmpty())
             return "[]";
 
@@ -56,12 +67,4 @@ public class ClovervilleResidentList {
         return jsonStringBuilder.toString();
     }
 
-    public ClovervilleResident getClovervilleResidentByName(String name) {
-        for (ClovervilleResident clovervilleResident : residentList) {
-            if (clovervilleResident.getName().equals(name)) {
-                return clovervilleResident;
-            }
-        }
-        return null;
-    }
 }
