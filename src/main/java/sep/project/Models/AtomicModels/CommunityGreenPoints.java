@@ -6,6 +6,7 @@ public class CommunityGreenPoints {
     public CommunityGreenPoints(int totalPoints){
         this.totalPoints = totalPoints;
     }
+    public CommunityGreenPoints(){};
     public int getTotalPoints(){
         return totalPoints;
     }

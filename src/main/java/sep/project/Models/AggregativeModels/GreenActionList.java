@@ -3,6 +3,7 @@ package sep.project.Models.AggregativeModels;
 import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.GreenAction;
+import sep.project.Services.ClovervillePersistenceService;
 
 public class GreenActionList {
     private ArrayList<GreenAction> list;
@@ -19,9 +20,9 @@ public class GreenActionList {
     }
 
 
-    public void addGreenAction(GreenAction action){
+    public void addGreenAction(GreenAction action) throws Exception{
         this.list.add(action);
-        
+        ClovervillePersistenceService.saveClovervilleGreenActionList(this);
     }
 
 

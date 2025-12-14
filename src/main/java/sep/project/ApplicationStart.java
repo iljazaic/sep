@@ -20,12 +20,7 @@ import spark.Spark;
 public class ApplicationStart {
 
     public static void main(String[] args) throws Exception {
-
-        System.out.println("Starting Application");
-
-        Scanner scan = new Scanner(System.in); // Create a Scanner object
-        String text = scan.nextLine(); // Read user input
-        // start web server
+        //start web server obv
         Spark.port(8080);
 
         // pull everything from persistence and init all the necessary models
@@ -34,15 +29,13 @@ public class ApplicationStart {
         PointTradeList pointTradeList = ClovervillePersistenceService.loadTradeList();
         CommunityGreenPoints communityGreenPoints = ClovervillePersistenceService.loadCommunityGreenPoints();
         ClovervilleResidentList clovervilleResidentList = ClovervillePersistenceService.loadClovervilleResidentList();
-        // CommunityTaskList communityTaskList =
-        // ClovervillePersistenceService.loadCommunityTaskList();
         CommunityTaskList communityTaskList = null;
 
         GreenActionList greenActionList = ClovervillePersistenceService.loadClovervilleGreenActionList();
         // then distribute them across the system
 
         // init the controllers
-
+        //this is nonsense ofc
         WebPageController webPageController = new WebPageController(pointTradeList, clovervilleResidentList,
                 communityGreenPoints, communityTaskList, greenActionList);
         webPageController.setupRoutes();

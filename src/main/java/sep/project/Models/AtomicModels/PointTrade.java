@@ -13,14 +13,28 @@ public class PointTrade {
     private String description;
     private int pointAmount;
 
-    public PointTrade(String name, int pointAmount, String descString, Long creatorResidentId) {
+    public PointTrade(String tradeName, int pointAmount, String descString, Long creatorResidentId) {
         this.creatorResidentId = creatorResidentId;
         this.pointAmount = pointAmount;
         this.description = descString;
-        this.tradeName = name;
+        this.tradeName = tradeName;
 
         this.pointTradeId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     }
+
+
+    //for jackson to persist this
+    public PointTrade(){};
+
+
+    public PointTrade(String tradeName, int pointAmount, String description, Long creatorResident, Long pointTradeId){
+        this.pointAmount =pointAmount;
+        this.pointTradeId = pointTradeId;
+        this.description = description;
+        this.tradeName = tradeName;
+        this.creatorResidentId = creatorResident;
+    }
+
 
     public String toJsonString() throws Exception {
         Map<String, Object> tradeData = new HashMap<>();

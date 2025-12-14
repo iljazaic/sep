@@ -1,36 +1,26 @@
-package sep.project.AdminGuiRender; // Create a package for UI launching/hosting
+package sep.project.AdminGuiRender;
 
 import javafx.application.Application;
 import sep.project.Controllers.AdminUIController;
-// Import your model lists
+
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.GreenActionList;
 import sep.project.Models.AggregativeModels.CommunityTaskList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
 
-/**
- * Utility class to launch the JavaFX Admin UI from an external main method
- * and pass the persistent model instances.
- */
+
 public class AdminUILauncher {
 
-    // Static fields to temporarily hold the persistent data during launch
-    // This is the common pattern used to pass data across the static launch() call.
+
+    //this basically forces the ui to use the static items that are only in the end assigned everything
     public static ClovervilleResidentList residentList;
     public static GreenActionList greenActionList;
     public static CommunityTaskList communityTaskList;
     public static PointTradeList tradeList;
     public static CommunityGreenPoints communityPoints;
     public static AdminUIController adminUIController;
-    /**
-     * The method your main application will call to start the Admin UI.
-     * * @param residentList The single instance of ClovervilleResidentList.
-     * @param greenActionList The single instance of GreenActionList.
-     * @param communityTaskList The single instance of CommunityTaskList.
-     * @param tradeList The single instance of PointTradeList.
-     * @param communityPoints The single instance of CommunityGreenPoints.
-     */
+
     public static void startAdminUI(
             ClovervilleResidentList residentList,
             GreenActionList greenActionList,

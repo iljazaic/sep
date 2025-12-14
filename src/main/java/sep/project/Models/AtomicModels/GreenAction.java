@@ -3,15 +3,15 @@ package sep.project.Models.AtomicModels;
 import java.util.UUID;
 
 public class GreenAction {
-    private final Long actionId;
+    private Long actionId;
     private String description;
     private int pointValue;
     private boolean approved; // to keep track of the stuff the admin hasnt yet approved
-    public final Long userId;
+    public Long userId;
 
-    public GreenAction(String desc, int value, Long userId) {
-        this.pointValue = value;
-        this.description = desc;
+    public GreenAction(String description, int pointValue, Long userId) {
+        this.pointValue = pointValue;
+        this.description = description;
 
         this.userId = userId;
         this.actionId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;// so theres no overlaps between the
@@ -19,10 +19,24 @@ public class GreenAction {
         this.approved = false;
     }
 
-    // to persist that bitch
+    // for jackson to be able to pull from persistence
+    public GreenAction() {
+    };
+
+    public GreenAction(String description, int pointValue, Long userId, Boolean approved, Long actionId) {
+        this.pointValue = pointValue;
+        this.description = description;
+
+        this.userId = userId;
+        this.actionId = actionId;
+        this.approved = approved;
+    }
+
+    // to persist this boy
     public String toJsonString() {
         return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
-                .formatted(Long.toString(actionId), description, Integer.toString(pointValue), Boolean.toString(approved), Long.toString(userId));
+                .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
+                        Boolean.toString(approved), Long.toString(userId));
     }
 
     public Long getUserId() {

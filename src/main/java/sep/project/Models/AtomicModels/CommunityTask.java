@@ -4,10 +4,14 @@ public class CommunityTask {
     private String description;
     private int pointReward;
 
-    public CommunityTask(){};
+    public CommunityTask() {
+    };
 
+    public CommunityTask(String description, int pointReward) {
+        this.description = description;
+        this.pointReward = pointReward;
+    }
 
-    
     public String getDescription() {
         return description;
     }
@@ -24,8 +28,8 @@ public class CommunityTask {
         this.pointReward = pointReward;
     }
 
-    public String toJsonString(){
+    public String toJsonString() {
         return "Community Task";
     }
-    
+
 }
