@@ -30,7 +30,7 @@ public class ApplicationStart {
                 CommunityGreenPoints communityGreenPoints = ClovervillePersistenceService.loadCommunityGreenPoints();
                 ClovervilleResidentList clovervilleResidentList = ClovervillePersistenceService
                                 .loadClovervilleResidentList();
-                CommunityTaskList communityTaskList = ClovervillePersistenceService.load;
+                CommunityTaskList communityTaskList = ClovervillePersistenceService.loadCommunityTasks();
 
                 GreenActionList greenActionList = ClovervillePersistenceService.loadClovervilleGreenActionList();
                 // then distribute them across the system

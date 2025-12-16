@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Cloverville</title>
@@ -7,9 +8,8 @@
   <link rel="stylesheet" href="css/styles.css">
 
   <link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@400;500&display=swap"
-  rel="stylesheet"
-/>
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet" />
 
 </head>
 
@@ -23,11 +23,11 @@
 
       <nav class="main-nav" id="mainNav">
         <ul>
-          <li><a href="/about">About us</a></li>
-          <li><a href="/green-tasks">Green Tasks</a></li>
-          <li><a href="/green-points">Green Points</a></li>
-          <li><a href="/point-trades">Task Trades</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="pages/aboutus.html">About us</a></li>
+          <li><a href="pages/green-tasks.html">Green Tasks</a></li>
+          <li><a href="pages/green-points.html">Green Points</a></li>
+          <li><a href="pages/task-trades.html">Task Trades</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
         </ul>
       </nav>
 
@@ -41,46 +41,43 @@
 
   <main id="top">
     <!-- HERO -->
-    <!-- HERO (with About inside) -->
-<section class="hero" id="top">
-  <div class="container">
-    <div class="hero-inner">
-      <h1 class="hero-title">Cloverville</h1>
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-inner">
+          <h1 class="hero-title">Cloverville</h1>
 
-      <div class="hero-buttons">
-        <a href="#green-tasks" class="btn btn-primary">See actions</a>
-        <a href="#green-tasks" class="btn btn-outline">Green tasks</a>
+          <div class="hero-buttons">
+            <a href="pages/green-tasks.html" class="btn btn-primary">Green tasks</a>
+            <a href="pages/task-trades.html" class="btn btn-outline">See trades</a>
+          </div>
+        </div>
+
+        <div class="about-wrapper" id="about">
+          <article class="about-card">
+            <p class="section-label">About us</p>
+            <h2 class="section-title">A small village with big green dreams</h2>
+            <p class="section-body">
+              At Cloverville, we believe that making the world greener starts with simple, everyday actions.
+              Whether it's recycling, planting a tree, or just turning off the lights, everyone helps however they can.
+              By working together, we've built a warm and welcoming community.
+            </p>
+            <button class="btn about-btn"><a href="pages/aboutus.html">READ MORE</a></button>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-logo">C</div>
 
-    <div class="about-wrapper" id="about">
-      <article class="about-card">
-        <p class="section-label">About us</p>
-        <h2 class="section-title">A small village with big green dreams</h2>
-        <p class="section-body">
-          Call out a feature, benefit, or value of your site, then link to a
-          page where people can learn more about it. Call out a feature,
-          benefit, or value of your site, then link to a page where people
-          can learn more about it.
+        <p class="footer-rights">
+          © 2025 Cloverville. All rights reserved.
         </p>
-        <button class="btn about-btn"><a href="pages/aboutus.html">Read more</a></button>
-      </article>
-    </div>
-  </div>
-</section>
-  <!-- FOOTER -->
-  <footer class="site-footer" id="contact">
-    <div class="container footer-inner">
-      <div class="footer-logo">C</div>
-      <div class="footer-social">
-        <!-- Replace with actual icons/links (SVG, icon font etc.) -->
-        <a href="#" aria-label="Instagram">@</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="Email">✉</a>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="javascript/script.js"></script>
+    <script src="javascript/script.js"></script>
 </body>
+
 </html>

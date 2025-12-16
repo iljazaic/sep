@@ -28,7 +28,6 @@
   padding: 0;
 }
 
-/* Body uses Roboto – body style, size 18 */
 body {
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -38,7 +37,6 @@ body {
   line-height: 1.6;
 }
 
-/* Headings use Montserrat */
 h1,
 h2,
 h3,
@@ -49,7 +47,6 @@ h3,
     "Segoe UI", sans-serif;
 }
 
-/* utility: uppercase section label etc. */
 img {
   max-width: 100%;
   display: block;
@@ -114,7 +111,7 @@ button {
 
 .main-nav a {
   position: relative;
-  font-weight: 700; /* Montserrat Bold */
+  font-weight: 700;
   color: var(--green-light);
 }
 
@@ -134,7 +131,6 @@ button {
   width: 100%;
 }
 
-/* Mobile nav toggle */
 .nav-toggle {
   display: none;
   width: 40px;
@@ -168,12 +164,11 @@ button {
   overflow: hidden;
 }
 
-/* background image – optional */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../img/bgsep.png"); /* or remove if you don't have it */
+  background-image: url("../img/bgsep.png");
   background-size: cover;
   background-position: center;
   pointer-events: none;
@@ -189,7 +184,6 @@ button {
   margin-bottom: 7rem;
 }
 
-/* HERO heading = Montserrat Black */
 .hero-title {
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -201,7 +195,6 @@ button {
   margin-bottom: 1.75rem;
 }
 
-/* Buttons use Montserrat Black too */
 .hero-buttons {
   display: inline-flex;
   gap: 0.85rem;
@@ -218,7 +211,7 @@ button {
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   font-size: 0.95rem;
-  font-weight: 900; /* Black */
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 2px solid transparent;
@@ -253,7 +246,6 @@ button {
     background: #0D1B1EBF;
 }
 
-/* ABOUT CARD – now INSIDE hero */
 .about-wrapper {
   position: relative;
   max-width: 720px;
@@ -266,7 +258,6 @@ button {
   padding: 2rem 2.25rem;
 }
 
-/* labels + headings */
 .section-label {
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -278,16 +269,15 @@ button {
   margin-bottom: 0.5rem;
 }
 
-/* Subheadings – Montserrat Bold 28 */
 .section-title {
   font-size: 28px;
-  font-weight: 700; /* Bold */
+  font-weight: 700;
   margin-bottom: 0.75rem;
   color: var(--text-main);
 }
 
 .section-body {
-  font-size: 18px; /* body size */
+  font-size: 18px;
   color: var(--text-muted);
   max-width: 42rem;
 }
@@ -312,14 +302,14 @@ button {
 }
 
 /* -----------------------------
-   CONTENT SECTION (headline + grid)
+   CONTENT
 ------------------------------ */
 .headline-section {
   padding-top: 3.5rem;
 }
 
 .headline-title {
-  font-size: 28px; /* subheading size */
+  font-size: 28px;
   font-weight: 700;
   color: var(--green-main);
   margin-bottom: 0.4rem;
@@ -332,7 +322,7 @@ button {
 }
 
 .media-grid {
-  margin-top: 2.2rem;
+  margin: 2.2rem 0 2.2rem 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
@@ -340,7 +330,6 @@ button {
 
 .media-grid img {
   width: 100%;
-  height: 220px;
   box-shadow: var(--shadow-card);
 }
 
@@ -360,11 +349,6 @@ button {
   font-weight: 700;
   color: var(--green-main);
   margin-bottom: 0.25rem;
-}
-
-.testimonials-subtitle {
-  font-size: 18px;
-  color: var(--text-muted);
 }
 
 .testimonials-grid {
@@ -451,12 +435,11 @@ button {
   font-weight: 900;
 }
 
-.footer-social {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.footer-social a {
+.footer-rights {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   opacity: 0.9;
 }
 
@@ -464,7 +447,6 @@ button {
    BREAKPOINTS
 ------------------------------ */
 
-/* Tablet and up (≥800px) */
 @media (min-width: 800px) {
   .about-card {
     padding: 2.25rem 2.75rem;
@@ -479,13 +461,11 @@ button {
   }
 
   .media-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 260px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .media-grid img:nth-child(1),
-  .media-grid img:nth-child(4) {
-    height: 260px;
+  .media-grid img:nth-child(2) {
+    align-self: end;
   }
 
   .testimonials-grid {
@@ -496,7 +476,6 @@ button {
     font-size: 0.85rem;
   }
 
-  /* nav toggle behaviour */
   .nav-toggle {
     display: none;
   }
@@ -506,7 +485,6 @@ button {
   }
 }
 
-/* Desktop (≥1280px) – show full About card, no peek */
 @media (min-width: 1280px) {
   .hero-title {
     font-size: 3.5rem;
@@ -523,13 +501,9 @@ button {
   }
 
   .media-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 1.75rem;
     row-gap: 1.5rem;
-  }
-
-  .media-grid img {
-    height: 260px;
   }
 
   .footer-inner {
@@ -537,7 +511,6 @@ button {
   }
 }
 
-/* Mobile (≤799px) – nav menu etc. */
 @media (max-width: 799px) {
   .nav-toggle {
     display: inline-flex;
@@ -582,16 +555,18 @@ button {
     font-size: 2.6rem;
   }
 
-  .media-grid img {
-    height: 210px;
-  }
-
   .site-footer {
     padding-block: 1rem;
   }
 
   .footer-inner {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .footer-rights {
+    margin-left: 0;
   }
 }

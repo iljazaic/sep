@@ -15,7 +15,6 @@ window.addEventListener("resize", () => {
   if (window.innerWidth >= 800 && navToggle && mainNav) {
     navToggle.classList.remove("open");
     mainNav.classList.remove("open");
-    navToggle.style.color  = "#0b6e4f";
   }
 });
 
@@ -27,7 +26,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     if (target) {
       e.preventDefault();
       window.scrollTo({
-        top: target.offsetTop - 72, // header height offset
+        top: target.offsetTop - 72,
         behavior: "smooth",
       });
 

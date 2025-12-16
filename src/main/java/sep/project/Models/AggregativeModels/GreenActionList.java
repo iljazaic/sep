@@ -1,5 +1,7 @@
 package sep.project.Models.AggregativeModels;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import sep.project.Models.AtomicModels.GreenAction;
@@ -22,7 +24,32 @@ public class GreenActionList implements JsonManager {
 
     public void addGreenAction(GreenAction action) throws Exception {
         this.list.add(action);
-        ClovervillePersistenceService.saveClovervilleGreenActionList(this);
+        ClovervillePersistenceService.saveList(this);
+    }
+
+    public void removeAction(GreenAction action) {
+        if (list.contains(action))
+            list.remove(action);
+    }
+
+    public String getWeekLongActionListJson() throws Exception {
+        if (this.list.isEmpty())
+            return "[]";
+        StringBuilder jsonStringBuilder = new StringBuilder();
+        jsonStringBuilder.append("[\n");
+        for (GreenAction action : this.list) {
+            if (action.getTimestamp().isAfter(Instant.now().minus(7, ChronoUnit.DAYS))) {
+                String dataString = action.toJsonString();
+                jsonStringBuilder.append(dataString);
+
+                if (list.indexOf(action) != list.size() - 1)
+                    jsonStringBuilder.append(",\n");
+                else {
+                    jsonStringBuilder.append("\n]");
+                }
+            }
+        }
+        return jsonStringBuilder.toString();
     }
 
     @Override

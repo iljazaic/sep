@@ -1,10 +1,12 @@
 package sep.project.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -111,6 +113,9 @@ public class AdminUIController {
 
         updateCommunityPointsDisplay();
     }
+
+
+    //for table refreshes
     private ObservableList<ClovervilleResident> getObservableResidents() {
         if (residentList.getResidentList() == null) {
             residentList.setResidentList(new ArrayList<>());
@@ -132,21 +137,15 @@ public class AdminUIController {
     }
 
     private ObservableList<CommunityTask> getObservableTasks() {
-        // CommunityTaskList does not have a public getter for taskList besides the list
-        // passed in the constructor
-        // Assuming you can get the list from the CommunityTaskList instance.
-        // For now, returning an empty list for safety.
-
         return FXCollections.observableArrayList(communityTaskList.getCommunityTasks());
     }
 
     private ObservableList<PointTrade> getObservableTrades() {
-        // PointTradeList's getPointTradeList returns ArrayList<?> which is unsafe.
-        // Assuming a castable list is available from the model.
-        // For now, returning an empty list for safety.
-        return FXCollections.observableArrayList();
+        return FXCollections.observableArrayList(tradeList.getList());
     }
 
+
+    //for live feed
     private void refreshAllTables() {
         residentTable.setItems(getObservableResidents());
         greenActionTable.setItems(getObservableUnapprovedGreenActions());
@@ -155,33 +154,103 @@ public class AdminUIController {
         updateCommunityPointsDisplay();
     }
 
-    @FXML
-    private void handleCreateUser() throws Exception {
-        TextInputDialog dialog = new TextInputDialog("New Resident");
-        dialog.setTitle("Create Resident");
-        dialog.setHeaderText("Enter Name for New Resident");
-        dialog.setContentText("Name:");
 
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> {
-            ClovervilleResident newResident = new ClovervilleResident(name, "Email Placeholder");
-            residentList.addResident(newResident);
-            try {
-                ClovervillePersistenceService.saveClovervilleResidentList(residentList);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+    //here begin the handlers
+    @FXML
+    private void handleCreateUser() {
+        Dialog<ClovervilleResident> dialog = new Dialog<>();
+        dialog.setTitle("Create New Resident");
+        dialog.setHeaderText("Enter details for the new Cloverville Resident:");
+
+        ButtonType createButtonType = new ButtonType("Create", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(createButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nameField = new TextField();
+        nameField.setPromptText("Resident Name (Required)");
+
+        TextField emailField = new TextField();
+        emailField.setPromptText("Email Address");
+
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Phone Number (Digits only)");
+
+        grid.add(new Label("Name:"), 0, 0);
+        grid.add(nameField, 1, 0);
+        grid.add(new Label("Email:"), 0, 1);
+        grid.add(emailField, 1, 1);
+        grid.add(new Label("Phone:"), 0, 2);
+        grid.add(phoneField, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Button createButton = (Button) dialog.getDialogPane().lookupButton(createButtonType);
+        createButton.setDisable(true);
+
+        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            createButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == createButtonType) {
+                Long phoneNumberLong = null;
+                String phoneText = phoneField.getText().trim();
+                if (!phoneText.isEmpty()) {
+                    try {
+                        phoneNumberLong = Long.parseLong(phoneText.replaceAll("[^0-9]", ""));
+                    } catch (NumberFormatException e) {
+                        showAlert("Input Error",
+                                "The Phone Number field must only have numbers");
+                        return null;
+                    }
+                }
+
+                return new ClovervilleResident(
+                        nameField.getText(),
+                        emailField.getText(),
+                        phoneNumberLong);
             }
-            showAlert("Success", "Resident created: " + name);
+            return null;
+        });
+
+        Optional<ClovervilleResident> result = dialog.showAndWait();
+
+        result.ifPresent(newResident -> {
+            if (newResident == null) {
+                return;
+            }
+
+            residentList.addResident(newResident);
+
+            try {
+                ClovervillePersistenceService.saveList(residentList);
+            } catch (Exception e) {
+                showAlert("Error", "Failed to save resident list: " + e.getMessage());
+                e.printStackTrace();
+                residentList.removeResident(newResident);
+                return;
+            }
+            showAlert("Success", "Resident created: " + newResident.getName()
+                    + "\nEmail: " + newResident.getEmail()
+                    + "\nPhone: " + (newResident.getPhoneNumber() != null ? newResident.getPhoneNumber() : "N/A"));
             refreshAllTables();
         });
     }
 
+    //i assume the garbage collector will take care of anything that happens to "selected" afterwards
+    //if not then we got a memory leak but who cares its a 1st sem project lol
     @FXML
-    private void handleRemoveUser() {
+    private void handleRemoveUser() throws Exception {
         ClovervilleResident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            residentList.remoevResident(selected);
+            residentList.removeResident(selected);
             showAlert("Success", "Resident removed: " + selected.getName());
+            ClovervillePersistenceService.saveList(residentList);
             refreshAllTables();
         } else {
             showAlert("Error", "Please select a resident to remove.");
@@ -199,8 +268,9 @@ public class AdminUIController {
         GreenAction selected = greenActionTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.setApproved(true);
-            ClovervillePersistenceService.saveClovervilleGreenActionList(greenActionList);
-            // TODO: Add logic to updat
+            Long userId = selected.getUserId();
+            residentList.editResidentPersonalPoints(userId, selected.getPointValue());
+            ClovervillePersistenceService.saveList(greenActionList);
             showAlert("Success", "Action Approved: " + selected.getDescription());
             refreshAllTables();
         } else {
@@ -208,11 +278,14 @@ public class AdminUIController {
         }
     }
 
+    //tested - works
     @FXML
-    private void handleDenyAction() {
+    private void handleDenyAction() throws Exception {
         GreenAction selected = greenActionTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            showAlert("Success", "Action Denied " + selected.getDescription());
+            greenActionList.removeAction(selected);
+            ClovervillePersistenceService.saveList(greenActionList);
+            showAlert("Success", "Action Denied And Removed " + selected.getDescription());
             refreshAllTables();
         } else {
             showAlert("Error", "Please select an action to deny.");
@@ -225,10 +298,11 @@ public class AdminUIController {
     }
 
     @FXML
-    private void handleRemoveTask() {
+    private void handleRemoveTask() throws Exception {
         CommunityTask selected = taskTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             communityTaskList.voidRemoveTaskList(selected);
+            ClovervillePersistenceService.saveList(communityTaskList);
             showAlert("Success", "Task removed.");
             refreshAllTables();
         } else {
@@ -237,11 +311,12 @@ public class AdminUIController {
     }
 
     @FXML
-    private void handleRemoveTrade() {
+    private void handleRemoveTrade() throws Exception {
         PointTrade selected = tradeTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            // TODO: remove trade method
-            showAlert("Success", "Point Trade removed (Placeholder): " + selected.getTradeName());
+            tradeList.removeTrade(selected);
+            ClovervillePersistenceService.saveList(tradeList);
+            showAlert("Success", "Point Trade removed: " + selected.getTradeName());
             refreshAllTables();
         } else {
             showAlert("Error", "Please select a trade to remove.");
@@ -253,10 +328,11 @@ public class AdminUIController {
     }
 
     @FXML
-    private void handleSetCommunityPoints() {
+    private void handleSetCommunityPoints() throws Exception {
         try {
             int newPoints = Integer.parseInt(newPointsField.getText());
             communityPoints.setTotalPoints(newPoints);
+            ClovervillePersistenceService.saveList(communityPoints);
             updateCommunityPointsDisplay();
             pointsStatusLabel.setText("Successfully updated community points.");
         } catch (NumberFormatException e) {

@@ -54,17 +54,6 @@ public class ClovervillePersistenceService {
     }
 
     /**
-     * Converts that shit to a string array and saves
-     * 
-     * @param points
-     * @throws Exception
-     */
-    public static void saveCommunityPoints(CommunityGreenPoints points) throws Exception {
-        String jsonList = points.toJsonString();
-        writeStringToJsonFile(jsonList, "CommunityGreenPoints.json");
-    }
-
-    /**
      * Loads from persistence
      * 
      * @return the trade list
@@ -72,7 +61,7 @@ public class ClovervillePersistenceService {
     public static PointTradeList loadTradeList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        File jsonFile = new File(pathToStorageDirectory.concat("/Trades.json"));
+        File jsonFile = new File(pathToStorageDirectory.concat("/PointTradeList.json"));
         PointTradeList list = new PointTradeList();
         list.populateArrayFromPersistence(mapper.readValue(jsonFile, new TypeReference<ArrayList<PointTrade>>() {
         }));
@@ -102,7 +91,7 @@ public class ClovervillePersistenceService {
     public static ClovervilleResidentList loadClovervilleResidentList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        File jsonFile = new File(pathToStorageDirectory.concat("/Residents.json"));
+        File jsonFile = new File(pathToStorageDirectory.concat("/ClovervilleResidentList.json"));
 
         ClovervilleResidentList list = new ClovervilleResidentList();
 
@@ -116,7 +105,7 @@ public class ClovervillePersistenceService {
     public static GreenActionList loadClovervilleGreenActionList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        File jsonFile = new File(pathToStorageDirectory.concat("/GreenActions.json"));
+        File jsonFile = new File(pathToStorageDirectory.concat("/GreenActionList.json"));
 
         GreenActionList list = new GreenActionList();
 
@@ -130,7 +119,7 @@ public class ClovervillePersistenceService {
     public static CommunityTaskList loadCommunityTasks() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        File jsonFile = new File(pathToStorageDirectory.concat("/CommunityTasks.json"));
+        File jsonFile = new File(pathToStorageDirectory.concat("/CommunityTaskList.json"));
 
         CommunityTaskList list = new CommunityTaskList();
 
@@ -143,6 +132,7 @@ public class ClovervillePersistenceService {
 
     /**
      * general saving method makes the rest obsolete
+     * 
      * @param listObject to save (must be aggregative class)
      * @throws Exception (to shut up the jvm)
      * 
@@ -156,14 +146,12 @@ public class ClovervillePersistenceService {
         allowedClasses.add(CommunityGreenPoints.class);
         if (allowedClasses.contains(listObject.getClass())) {
             String jsonList = ((JsonManager) listObject).toJsonString();
-            writeStringToJsonFile(jsonList, "/%s.json".formatted(listObject.getClass().getName()));
+            writeStringToJsonFile(jsonList, "/%s.json".formatted(listObject.getClass().getSimpleName()));
         } else {
             return;
         }
     }
 
-
-    
 }
 
 // load residents *
@@ -174,5 +162,5 @@ public class ClovervillePersistenceService {
 // save points *
 // load greenactions *
 // save greenactions *
-// load community actions
-// save community actions
+// load community actions *
+// save community actions *

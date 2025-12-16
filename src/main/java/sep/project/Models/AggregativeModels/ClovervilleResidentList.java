@@ -33,11 +33,6 @@ public class ClovervilleResidentList implements JsonManager {
         setResidentList(residentList);
     }
 
-    public void remoevResident(ClovervilleResident resident) {
-        if (residentList.contains(resident))
-            residentList.remove(resident);
-    }
-
     public ClovervilleResident getClovervilleResidentByName(String name) {
         for (ClovervilleResident clovervilleResident : residentList) {
             if (clovervilleResident.getName().equals(name)) {
@@ -45,6 +40,20 @@ public class ClovervilleResidentList implements JsonManager {
             }
         }
         return null;
+    }
+
+    public void removeResident(ClovervilleResident resident){
+        if (residentList.contains(resident))
+            residentList.remove(resident);
+    }
+
+    public void editResidentPersonalPoints(Long userId, int pointAmount){
+        for (ClovervilleResident clovervilleResident : residentList) {
+            if(clovervilleResident.getResidentId()==userId){
+                clovervilleResident.editPersonalPoints(pointAmount);
+                return;
+            }
+        }
     }
 
     @Override

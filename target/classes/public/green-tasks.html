@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cloverville</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../css/green-tasks.css">
+
+  <link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="logo-circle" aria-label="Cloverville logo">
+        C
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="green-tasks.html">Green Tasks</a></li>
+          <li><a href="green-points.html">Green Points</a></li>
+          <li><a href="task-trades.html">Task Trades</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+  <div class="container">
+    <div class="green-tasks">
+      <div class="green-tasks-content">
+        <h2 class="green-tasks-heading">Green Tasks</h2>
+        <p class="green-tasks-text">
+          Go ahead and say just a little more about what you do.
+        </p>
+        <div class="green-tasks-actions">
+          <a href="green-points.html" class="btn btn-primary">GREEN POINTS</a>
+          <a href="task-trades.html" class="btn btn-outline">SEE TRADES</a>
+        </div>
+      </div>
+      <div class="green-tasks-image-wrapper">
+        <img
+          src="../img/bike.png"
+          alt="Resident doing gardening tasks in Cloverville"
+          class="green-tasks-image"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tasks-section">
+  <div class="container">
+    <h2 class="tasks-heading">Completed Green Tasks</h2>
+    <p class="tasks-subtitle">
+      Here you can see all the completed green tasks in last week.
+    </p>
+    <div class="tasks-grid" id="tasksGrid">
+    </div>
+  </div>
+</section>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">C</div>
+
+    <p class="footer-rights">
+      © 2025 Cloverville. All rights reserved.
+    </p>
+  </div>
+</footer>
+  <script src="../javascript/script.js"></script>
+  <script src="../javascript/green-tasks.js"></script>
+</body>
+</html>

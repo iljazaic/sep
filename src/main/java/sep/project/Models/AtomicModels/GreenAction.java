@@ -1,13 +1,17 @@
 package sep.project.Models.AtomicModels;
 
+import java.time.Instant;
 import java.util.UUID;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GreenAction {
     private Long actionId;
     private String description;
     private int pointValue;
     private boolean approved; // to keep track of the stuff the admin hasnt yet approved
-    public Long userId;
+    private Long userId;
+    private Instant timestamp;
 
     public GreenAction(String description, int pointValue, Long userId) {
         this.pointValue = pointValue;
@@ -23,20 +27,26 @@ public class GreenAction {
     public GreenAction() {
     };
 
-    public GreenAction(String description, int pointValue, Long userId, Boolean approved, Long actionId) {
+    public GreenAction(String description, int pointValue, Long userId, Boolean approved, Long actionId,
+            Instant timestamp) {
         this.pointValue = pointValue;
         this.description = description;
-
+        this.timestamp = timestamp;
         this.userId = userId;
         this.actionId = actionId;
         this.approved = approved;
     }
 
+    public Instant getTimestamp() {
+        return this.timestamp;
+    }
+
     // to persist this boy
-    public String toJsonString() {
+    public String toJsonString() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
         return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
                 .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
-                        Boolean.toString(approved), Long.toString(userId));
+                        Boolean.toString(approved), Long.toString(userId), mapper.writeValueAsString(timestamp));
     }
 
     public Long getUserId() {

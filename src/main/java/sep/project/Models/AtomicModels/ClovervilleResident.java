@@ -7,26 +7,27 @@ public class ClovervilleResident {
     private String name;
     private String email;
     private int personalPoints;
+    private Long phoneNumber;
 
-    public ClovervilleResident(String name, String email) {
+    public ClovervilleResident(String name, String email, Long phoneNumber) {
         this.name = name;
-
-        //bits - ignore the sloppy implementation
+        this.phoneNumber = phoneNumber;
+        // bits - ignore the sloppy implementation
         this.residentId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.personalPoints = 0;
         this.email = email;
     }
 
-    // this is ONLY for persistence to use you hear me
-
+    // these two are ONLY for persistence to use you hear me
     public ClovervilleResident() {
     };
 
-    public ClovervilleResident(String name, Long residentId, String email, int personalPoints) {
+    public ClovervilleResident(String name, Long residentId, String email, int personalPoints, Long phoneNumber) {
         this.name = name;
         this.residentId = residentId;
         this.email = email;
         this.personalPoints = personalPoints;
+        this.phoneNumber=phoneNumber;
     }
 
     public void reportGreenAction() {
@@ -44,11 +45,21 @@ public class ClovervilleResident {
         return this.email;
     }
 
+    public Long getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
     public int getPersonalPoints() {
         return this.personalPoints;
     }
 
+    public void editPersonalPoints(int delta){
+        this.personalPoints+=delta;
+    }
+
     public String toJsonString() {
-        return "{\"name\":\"%s\",\"residentId\":%s,\"email\":\"%s\",\"personalPoints\":%s}".formatted(name, Long.toString(residentId), email, Integer.toString(personalPoints));
+        return "{\"name\":\"%s\",\"residentId\":%s,\"email\":\"%s\",\"personalPoints\":%s,\"phoneNumber\":%s}"
+                .formatted(name,
+                        Long.toString(residentId), email, Integer.toString(personalPoints), Long.toString(phoneNumber));
     }
 }

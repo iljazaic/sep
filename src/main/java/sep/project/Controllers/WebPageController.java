@@ -70,7 +70,7 @@ public class WebPageController {
                     // create an unapproved action
                     // then we can display all the unapproved actions for the admin to approve yay
                     greenActionList.addGreenAction(action);
-                    ClovervillePersistenceService.saveClovervilleGreenActionList(greenActionList);
+                    ClovervillePersistenceService.saveList(greenActionList);
                 }
                 return WebPageService.renderHtml("createUser.html");
             });
