@@ -1,6 +1,8 @@
 package sep.project.Models.AtomicModels;
 
-public class CommunityTask {
+import sep.project.Models.Interfaces.JsonManager;
+
+public class CommunityTask implements JsonManager {
     private String description;
     private int pointReward;
 
@@ -28,8 +30,9 @@ public class CommunityTask {
         this.pointReward = pointReward;
     }
 
+    @Override
     public String toJsonString() {
-        return "Community Task";
+        return "{\"description\":\"%s\",\"pointReward\":%s}".formatted(description, Integer.toString(pointReward));
     }
 
 }

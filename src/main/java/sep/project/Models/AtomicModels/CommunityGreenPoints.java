@@ -1,6 +1,8 @@
 package sep.project.Models.AtomicModels;
 
-public class CommunityGreenPoints {
+import sep.project.Models.Interfaces.JsonManager;
+
+public class CommunityGreenPoints implements JsonManager {
     private int totalPoints;
 
     public CommunityGreenPoints(int totalPoints){
@@ -15,6 +17,7 @@ public class CommunityGreenPoints {
         this.totalPoints = points;
     }
 
+    @Override
     public String toJsonString(){
         return "[{\"totalPoints\":%s}]".formatted(Integer.toString(totalPoints));
     }

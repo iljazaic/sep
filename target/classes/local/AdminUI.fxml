@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            style="-fx-background-color: #0d4a3b;"> <center>
-        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
-            
+            style="-fx-background-color: #0d4a3b;">
+    <top>
+        <HBox fx:id="navBar" spacing="0" style="-fx-background-color: #2e8b57; -fx-padding: 0;">
+            <Button fx:id="navResidents" text="RESIDENTS" 
+                    onAction="#switchToResidents"
+                    style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="navActivities" text="ACTIVITIES &amp; RULES" 
+                    onAction="#switchToActivities"
+                    style="-fx-background-color: #2e8b57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="navTrade" text="TRADE OFFER" 
+                    onAction="#switchToTrade"
+                    style="-fx-background-color: #2e8b57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="navReset" text="POINT RESET" 
+                    onAction="#switchToReset"
+                    style="-fx-background-color: #2e8b57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="navPublish" text="PUBLISH TO WEBSITE" 
+                    onAction="#switchToPublish"
+                    style="-fx-background-color: #2e8b57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"
+                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+    </top>
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" side="BOTTOM"
+                 style="-fx-background-color: #0d4a3b;"
+                 VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
             <style>
-                /* 1. General TabPane container cleanup */
+                /* Hide the default tab headers since we're using custom navbar */
+                .tab-header-area {
+                    -fx-padding: 0;
+                    -fx-pref-height: 0;
+                    -fx-min-height: 0;
+                    -fx-max-height: 0;
+                    visibility: hidden;
+                }
+                
                 .tab-pane {
                     -fx-background-color: #0d4a3b;
                     -fx-border-width: 0;
                 }
-
-                /* 2. Styling the area where the tabs sit (the navigation bar itself) */
-                .tab-header-area {
-                    -fx-padding: 0;
-                    -fx-background-color: #2e8b57; /* Medium green navigation bar background */
-                    -fx-border-width: 0;
-                }
                 
-                /* 3. Ensure the background behind the tabs is flat */
-                .tab-header-background {
-                    -fx-background-color: transparent; /* Ensures no weird color bleed */
-                    -fx-border-width: 0;
-                }
-                
-                /* 4. Styling the individual tabs (the "buttons") */
-                .tab-pane .tab {
-                    /* Remove all dimensional styling */
-                    -fx-background-insets: 0;
-                    -fx-background-radius: 0;
-                    -fx-border-width: 0;
-                    
-                    /* Flat colors */
-                    -fx-background-color: #2e8b57; /* Default (inactive) tab color */
-                    -fx-padding: 10 20 10 20;
-                    -fx-effect: null;
-                    -fx-border-color: #2e8b57; /* Use same color to remove perceived border */
-                }
-                
-                /* 5. Styling the selected/active tab */
-                .tab-pane .tab:selected {
-                    -fx-background-color: #55b740; /* Light green for active tab */
-                    -fx-border-width: 0;
-                    -fx-focus-color: transparent;
-                    -fx-border-color: #55b740; /* Use same color to remove perceived border */
-                }
-                
-                /* 6. Styling the text (label) inside the tabs */
-                .tab-pane .tab-label {
-                    -fx-text-fill: white;
-                    -fx-font-weight: bold;
-                    -fx-font-size: 14px;
-                }
-                
-                /* 7. Remove space between tab content and header */
                 .tab-content-area {
                     -fx-padding: 0;
                     -fx-border-width: 0;
+                    -fx-background-color: #0d4a3b;
                 }
             </style>
-            
             <tabs>
                 <Tab text="RESIDENTS">
                     <content>
                         <VBox spacing="10" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
                             <HBox alignment="CENTER_LEFT" spacing="20">
                                 <Label text="List of Residents" style="-fx-text-fill: white; -fx-font-weight: bold;">
-                                    <font><Font size="16.0" /></font>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
                                 </Label>
                                 <Region HBox.hgrow="ALWAYS" />
                                 <HBox alignment="CENTER_RIGHT" spacing="5">
-                                    <Label text="COMMUNITY POOL: “POINTS”" style="-fx-text-fill: white; -fx-font-weight: bold;">
-                                        <font><Font size="16.0" /></font>
+                                    <Label text="COMMUNITY POOL: POINTS" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
                                     </Label>
                                     <Label fx:id="communityPointsLabel" text="[0]" style="-fx-text-fill: white; -fx-font-weight: bold;">
-                                        <font><Font size="16.0" /></font>
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
                                     </Label>
                                 </HBox>
                             </HBox>
-
                             <TableView fx:id="residentTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
                                 <columns>
                                     <TableColumn fx:id="residentIdCol" text="ID" prefWidth="50" />
                                     <TableColumn fx:id="residentNameCol" text="NAME" prefWidth="120" />
-                                    <TableColumn text="EMAIL" prefWidth="150" />
-                                    <TableColumn text="PHONE NUMBER" prefWidth="120" />
+                                    <TableColumn text="EMAIL" fx:id="residentEmailCol" prefWidth="150" />
+                                    <TableColumn text="PHONE" fx:id="residentPhoneNumberCol" prefWidth="120" />
                                     <TableColumn fx:id="residentPointsCol" text="POINTS" prefWidth="80" />
                                 </columns>
-                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
                             </TableView>
-
                             <HBox alignment="BOTTOM_LEFT" spacing="20">
                                 <Button text="ADD" onAction="#handleCreateUser"
-                                        style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px;"/>
+                                        style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"/>
                                 <Button text="EDIT" onAction="#handleEditPoints"
-                                        style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px;"/>
+                                        style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"/>
                                 <Region HBox.hgrow="ALWAYS" />
                                 <Button text="REMOVE" onAction="#handleRemoveUser"
-                                        style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px;"/>
+                                        style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;"/>
                             </HBox>
                         </VBox>
                     </content>
                 </Tab>
-
-                <Tab text="ACTIVITIES &amp; RULES">
+                <Tab text="ACTIVITIES &amp; TASKS">
                     <content>
                         <VBox spacing="15" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
-                            <Label text="UNAPPROVED GREEN ACTIONS" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="18.0" /></font></Label>
+                            <Label text="UNAPPROVED GREEN ACTIONS" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
                             <TableView fx:id="greenActionTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
                                 <columns>
                                     <TableColumn fx:id="actionIdCol" text="Action ID" prefWidth="75.0" />
@@ -121,13 +119,17 @@
                                 </columns>
                             </TableView>
                             <HBox spacing="10" alignment="CENTER_RIGHT">
-                                <Button text="APPROVE ACTION" onAction="#handleApproveAction" style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 5 15;"/>
-                                <Button text="DENY ACTION" onAction="#handleDenyAction" style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15;"/>
+                                <Button text="APPROVE ACTION" onAction="#handleApproveAction" 
+                                        style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
+                                <Button text="DENY ACTION" onAction="#handleDenyAction" 
+                                        style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
                             </HBox>
-
                             <Separator style="-fx-background-color: white;" />
-
-                            <Label text="COMMUNITY TASKS (RULES)" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="18.0" /></font></Label>
+                            <Label text="COMMUNITY TASKS (RULES)" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
                             <TableView fx:id="taskTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
                                 <columns>
                                     <TableColumn fx:id="taskDescCol" text="Description" prefWidth="300.0" />
@@ -135,17 +137,22 @@
                                 </columns>
                             </TableView>
                             <HBox spacing="10" alignment="CENTER_RIGHT">
-                                <Button text="CREATE NEW TASK" onAction="#handleCreateTask" style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 5 15;"/>
-                                <Button text="REMOVE SELECTED TASK" onAction="#handleRemoveTask" style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15;"/>
+                                <Button text="CREATE NEW TASK" onAction="#handleCreateTask" 
+                                        style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
+                                <Button text="REMOVE SELECTED TASK" onAction="#handleRemoveTask" 
+                                        style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
                             </HBox>
                         </VBox>
                     </content>
                 </Tab>
-
-                <Tab text="TRADE OFFER">
+                <Tab text="POINT TRADES">
                     <content>
                         <VBox spacing="10" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
-                            <Label text="POINT TRADE OFFERS" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="18.0" /></font></Label>
+                            <Label text="POINT TRADE OFFERS" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
                             <TableView fx:id="tradeTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
                                 <columns>
                                     <TableColumn fx:id="tradeIdCol" text="Trade ID" prefWidth="75.0" />
@@ -156,36 +163,50 @@
                                 </columns>
                             </TableView>
                             <HBox spacing="10" alignment="CENTER_RIGHT">
-                                <Button text="REMOVE TRADE" onAction="#handleRemoveTrade" style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15;"/>
+                                <Button text="REMOVE TRADE" onAction="#handleRemoveTrade" 
+                                        style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
                             </HBox>
                         </VBox>
                     </content>
                 </Tab>
-
                 <Tab text="POINT RESET">
                     <content>
                         <VBox spacing="20" alignment="CENTER" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
-                            <Label text="ADMINISTRATOR POINT MANAGEMENT" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="20.0" /></font></Label>
+                            <Label text="ADMINISTRATOR POINT MANAGEMENT" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
                             <Separator style="-fx-background-color: white; max-width: 500;" />
-                            <Label text="MANUALLY SET COMMUNITY GREEN POINTS" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="16.0" /></font></Label>
+                            <Label text="MANUALLY SET COMMUNITY GREEN POINTS" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="16.0" />
+                                </font>
+                            </Label>
                             <HBox alignment="CENTER" spacing="10">
                                 <Label text="New Total:" style="-fx-text-fill: white;" />
                                 <TextField fx:id="newPointsField" promptText="Enter New Point Total" />
-                                <Button text="SET POINTS" onAction="#handleSetCommunityPoints" style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 5 15;"/>
+                                <Button text="SET POINTS" onAction="#handleSetCommunityPoints" 
+                                        style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;"/>
                             </HBox>
                             <Label fx:id="pointsStatusLabel" style="-fx-text-fill: yellow;"/>
                             <Separator style="-fx-background-color: white; max-width: 500;" />
-                            <Button text="RESET ALL RESIDENT POINTS TO ZERO" style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+                            <Button text="RESET ALL RESIDENT POINTS TO ZERO" 
+                                    style="-fx-background-color: #c93b3b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 0; -fx-border-width: 0;"/>
                         </VBox>
                     </content>
                 </Tab>
-                
                 <Tab text="PUBLISH TO WEBSITE">
                     <content>
                         <VBox spacing="20" alignment="CENTER" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
-                            <Label text="PUBLISH OPTIONS" style="-fx-text-fill: white; -fx-font-weight: bold;"><font><Font size="20.0" /></font></Label>
+                            <Label text="PUBLISH OPTIONS" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
                             <Label text="Generate and push current data to the public website." style="-fx-text-fill: white;" />
-                            <Button text="PUBLISH NOW" style="-fx-background-color: #55b740; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+                            <Button text="PUBLISH NOW" 
+                                    style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 0; -fx-border-width: 0;"/>
                         </VBox>
                     </content>
                 </Tab>

@@ -2,7 +2,9 @@ package sep.project.Models.AtomicModels;
 
 import java.util.UUID;
 
-public class ClovervilleResident {
+import sep.project.Models.Interfaces.JsonManager;
+
+public class ClovervilleResident implements JsonManager {
     private Long residentId;
     private String name;
     private String email;
@@ -57,6 +59,7 @@ public class ClovervilleResident {
         this.personalPoints+=delta;
     }
 
+    @Override
     public String toJsonString() {
         return "{\"name\":\"%s\",\"residentId\":%s,\"email\":\"%s\",\"personalPoints\":%s,\"phoneNumber\":%s}"
                 .formatted(name,

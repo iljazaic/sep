@@ -35,6 +35,10 @@ public class AdminUIController {
     @FXML
     private TableColumn<ClovervilleResident, String> residentNameCol;
     @FXML
+    private TableColumn<ClovervilleResident, String> residentEmailCol;
+    @FXML
+    private TableColumn<ClovervilleResident, Long> residentPhoneNumberCol;
+    @FXML
     private TableColumn<ClovervilleResident, Integer> residentPointsCol;
     @FXML
     private TableView<GreenAction> greenActionTable;
@@ -89,8 +93,11 @@ public class AdminUIController {
 
     @FXML
     public void initialize() {
+
         residentIdCol.setCellValueFactory(new PropertyValueFactory<>("residentId"));
         residentNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        residentEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        residentPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         residentPointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
         residentTable.setItems(getObservableResidents());
 
@@ -114,8 +121,7 @@ public class AdminUIController {
         updateCommunityPointsDisplay();
     }
 
-
-    //for table refreshes
+    // for table refreshes
     private ObservableList<ClovervilleResident> getObservableResidents() {
         if (residentList.getResidentList() == null) {
             residentList.setResidentList(new ArrayList<>());
@@ -144,8 +150,7 @@ public class AdminUIController {
         return FXCollections.observableArrayList(tradeList.getList());
     }
 
-
-    //for live feed
+    // for live feed
     private void refreshAllTables() {
         residentTable.setItems(getObservableResidents());
         greenActionTable.setItems(getObservableUnapprovedGreenActions());
@@ -154,9 +159,7 @@ public class AdminUIController {
         updateCommunityPointsDisplay();
     }
 
-
-
-    //here begin the handlers
+    // here begin the handlers
     @FXML
     private void handleCreateUser() {
         Dialog<ClovervilleResident> dialog = new Dialog<>();
@@ -242,8 +245,9 @@ public class AdminUIController {
         });
     }
 
-    //i assume the garbage collector will take care of anything that happens to "selected" afterwards
-    //if not then we got a memory leak but who cares its a 1st sem project lol
+    // i assume the garbage collector will take care of anything that happens to
+    // "selected" afterwards
+    // if not then we got a memory leak but who cares its a 1st sem project lol
     @FXML
     private void handleRemoveUser() throws Exception {
         ClovervilleResident selected = residentTable.getSelectionModel().getSelectedItem();
@@ -278,7 +282,7 @@ public class AdminUIController {
         }
     }
 
-    //tested - works
+    // tested - works
     @FXML
     private void handleDenyAction() throws Exception {
         GreenAction selected = greenActionTable.getSelectionModel().getSelectedItem();
@@ -340,12 +344,81 @@ public class AdminUIController {
         }
     }
 
+
+
+    //for publishing - basically building persistence
+    @FXML
+    private void handlePublishTrades() throws Exception {
+        ClovervillePersistenceService.saveList(tradeList);
+    }
+
+    @FXML
+    private void handlePublishGreenActions() throws Exception{
+        ClovervillePersistenceService.saveList(greenActionList);
+    }
+
+    @FXML
+    private void handlePublishCommunityPool() throws Exception{
+        ClovervillePersistenceService.saveList(communityPoints);
+    }
+
+
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private TabPane mainTabPane;
+
+    @FXML
+    private Button navResidents, navActivities, navTrade, navReset, navPublish;
+
+    @FXML
+    private void switchToResidents() {
+        mainTabPane.getSelectionModel().select(0);
+        updateNavButtonStyles(navResidents);
+    }
+
+    @FXML
+    private void switchToActivities() {
+        mainTabPane.getSelectionModel().select(1);
+        updateNavButtonStyles(navActivities);
+    }
+
+    @FXML
+    private void switchToTrade() {
+        mainTabPane.getSelectionModel().select(2);
+        updateNavButtonStyles(navTrade);
+    }
+
+    @FXML
+    private void switchToReset() {
+        mainTabPane.getSelectionModel().select(3);
+        updateNavButtonStyles(navReset);
+    }
+
+    @FXML
+    private void switchToPublish() {
+        mainTabPane.getSelectionModel().select(4);
+        updateNavButtonStyles(navPublish);
+    }
+
+    private void updateNavButtonStyles(Button activeButton) {
+        String inactiveStyle = "-fx-background-color: #2e8b57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;";
+        String activeStyle = "-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;";
+
+        navResidents.setStyle(inactiveStyle);
+        navActivities.setStyle(inactiveStyle);
+        navTrade.setStyle(inactiveStyle);
+        navReset.setStyle(inactiveStyle);
+        navPublish.setStyle(inactiveStyle);
+
+        activeButton.setStyle(activeStyle);
     }
 
 }

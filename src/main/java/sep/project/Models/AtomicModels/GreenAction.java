@@ -5,7 +5,9 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GreenAction {
+import sep.project.Models.Interfaces.JsonManager;
+
+public class GreenAction implements JsonManager {
     private Long actionId;
     private String description;
     private int pointValue;
@@ -41,14 +43,6 @@ public class GreenAction {
         return this.timestamp;
     }
 
-    // to persist this boy
-    public String toJsonString() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
-                .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
-                        Boolean.toString(approved), Long.toString(userId), mapper.writeValueAsString(timestamp));
-    }
-
     public Long getUserId() {
         return this.userId;
     }
@@ -79,6 +73,15 @@ public class GreenAction {
 
     public void setPointValue(int pointValue) {
         this.pointValue = pointValue;
+    }
+
+    // to persist this boy
+    @Override
+    public String toJsonString() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
+                .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
+                        Boolean.toString(approved), Long.toString(userId), mapper.writeValueAsString(timestamp));
     }
 
 }

@@ -1,139 +1,77 @@
-/* Define the core color palette */
-.root-pane {
-    -fx-background-color: #333; /* A dark color for the outer border/window */
-}
+                /* 1. General TabPane container cleanup */
+                .tab-pane {
+                    -fx-background-color: #0d4a3b;
+                    -fx-border-width: 0;
+                }
 
-/* --- TOP BARS STYLING --- */
+                /* 2. Styling the area where the tabs sit (the navigation bar itself) */
+                .tab-header-area {
+                    -fx-padding: 0;
+                    -fx-background-color: #2e8b57;
+                    -fx-border-width: 0;
+                }
 
-.top-bar {
-    -fx-background-color: #f0f0f0; /* White/light gray for the absolute top bar (like a window title bar) */
-    -fx-pref-height: 30px;
-    -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #ccc;
-    -fx-text-fill: #333;
-}
+                /* 3. Ensure the background behind the tabs is flat */
+                .tab-header-background {
+                    -fx-background-color: #2e8b57;
+                    -fx-border-width: 0;
+                }
 
-.top-bar Label {
-    -fx-text-fill: #333;
-    -fx-font-weight: bold;
-}
+                /* 4. Make tabs container fill width like flexbox */
+                .headers-region {
+                    -fx-background-color: #2e8b57;
+                }
 
-.desktop-bar {
-    -fx-background-color: #333; /* Dark gray */
-    -fx-pref-height: 40px;
-}
+                .tab-header-area .headers-region .tab {
+                    -fx-pref-width: -1;
+                    /* Allow tabs to grow */
+                }
 
-/* --- NAVIGATION BAR STYLING --- */
+                /* 5. Styling the individual tabs (the "buttons") - FLAT DESIGN */
+                .tab-pane .tab {
+                    /* Remove all dimensional styling for flat appearance */
+                    -fx-background-insets: 0;
+                    -fx-background-radius: 0;
+                    -fx-border-width: 0;
+                    -fx-border-radius: 0;
 
-.nav-bar {
-    -fx-background-color: #5cb85c; /* The bright green background for the nav bar */
-}
+                    /* Flat colors - green background */
+                    -fx-background-color: #2e8b57;
+                    -fx-padding: 12 24 12 24;
+                    -fx-effect: none;
+                    -fx-focus-color: transparent;
+                    -fx-faint-focus-color: transparent;
+                }
 
-.nav-button, .nav-button-active {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-padding: 10px 15px;
-    -fx-background-radius: 0;
-    -fx-border-width: 0;
-    -fx-cursor: hand;
-}
+                /* 6. Hover state for tabs */
+                .tab-pane .tab:hover {
+                    -fx-background-color: #3fa965;
+                }
 
-.nav-button {
-    -fx-background-color: #5cb85c; /* Default bright green for inactive buttons */
-}
+                /* 7. Styling the selected/active tab */
+                .tab-pane .tab:selected {
+                    -fx-background-color: #55b740;
+                    -fx-border-width: 0;
+                    -fx-focus-color: transparent;
+                    -fx-faint-focus-color: transparent;
+                }
 
-.nav-button-active {
-    -fx-background-color: #4cae4c; /* Slightly darker green for the active button */
-}
+                /* 8. Styling the text (label) inside the tabs - WHITE TEXT */
+                .tab-pane .tab-label {
+                    -fx-text-fill: white;
+                    -fx-font-weight: bold;
+                    -fx-font-size: 14px;
+                }
 
-.nav-button:hover {
-    -fx-background-color: #4cae4c;
-}
+                /* 9. Remove space between tab content and header */
+                .tab-content-area {
+                    -fx-padding: 0;
+                    -fx-border-width: 0;
+                    -fx-background-color: #0d4a3b;
+                }
 
-/* --- MAIN CONTENT AREA STYLING --- */
-
-.main-content {
-    -fx-background-color: #387042; /* The primary dark green background */
-    -fx-padding: 10px 0;
-}
-
-.list-header, .pool-header {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-/* --- TABLEVIEW STYLING --- */
-
-.table-view {
-    -fx-background-color: #387042;
-    -fx-table-cell-border-color: #5cb85c; /* Light green border for cells */
-    -fx-border-color: white; /* White border around the entire table */
-    -fx-border-width: 2px;
-    -fx-border-radius: 0;
-}
-
-/* Styling for the table header */
-.table-view .column-header-background {
-    -fx-background-color: white; /* White header background */
-}
-
-.table-view .column-header .label {
-    -fx-font-weight: bold;
-    -fx-text-fill: #333; /* Dark text in the header */
-}
-
-/* Styling for the rows/cells */
-.table-row-cell {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-}
-
-.table-row-cell:odd {
-    /* No distinct striping in the original image, keeping it simple */
-    -fx-background-color: transparent;
-}
-
-.table-cell {
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    /* Add a white border between cells to recreate the look */
-    -fx-border-color: white;
-    -fx-border-width: 0 1px 1px 0;
-    -fx-padding: 5 5 5 5;
-}
-
-/* Remove the last column's right border and bottom-right corner border */
-.table-column:last-of-type .table-cell {
-    -fx-border-width: 0 0 1px 0;
-}
-
-.table-view .table-cell:selected {
-    -fx-background-color: #4cae4c; /* Highlight color for selection */
-}
-
-/* --- ACTION BUTTONS STYLING --- */
-
-.action-button-add, .action-button-edit {
-    -fx-background-color: #5cb85c; /* The bright green buttons */
-    -fx-text-fill: black; /* Text is dark/black */
-    -fx-font-weight: bold;
-    -fx-background-radius: 5px; /* Slight rounding on the corners */
-}
-
-.action-button-dark {
-    -fx-background-color: #333; /* The dark/black buttons */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5px;
-}
-
-/* Hover effect for all action buttons */
-.action-button-add:hover, .action-button-edit:hover {
-    -fx-background-color: #4cae4c;
-}
-
-.action-button-dark:hover {
-    -fx-background-color: #4a4a4a;
-}
+                /* 10. Remove focus indicators */
+                .tab-pane:focused>.tab-header-area>.headers-region>.tab:selected .focus-indicator {
+                    -fx-border-width: 0;
+                    -fx-border-color: transparent;
+                }

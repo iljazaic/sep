@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class PointTrade {
+import sep.project.Models.Interfaces.JsonManager;
+
+public class PointTrade implements JsonManager {
     private String tradeName;
     private Long pointTradeId;
     private Long creatorResidentId;
@@ -22,7 +24,7 @@ public class PointTrade {
         this.pointTradeId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     }
 
-    //both constructors for jackson to persist this thing
+    // both constructors for jackson to persist this thing
     public PointTrade() {
     };
 
@@ -32,18 +34,6 @@ public class PointTrade {
         this.description = description;
         this.tradeName = tradeName;
         this.creatorResidentId = creatorResident;
-    }
-
-    public String toJsonString() throws Exception {
-        Map<String, Object> tradeData = new HashMap<>();
-        tradeData.put("tradeName", getTradeName());
-        tradeData.put("creatorResidentId", getCreatorResidentId());
-        tradeData.put("pointAmount", getPointAmount());
-        tradeData.put("pointTradeId", getPointTradeId());
-        tradeData.put("description", getDescription());
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jacksonData = objectMapper.writeValueAsString(tradeData);
-        return jacksonData;
     }
 
     public String getTradeName() {
@@ -80,5 +70,21 @@ public class PointTrade {
 
     public void setPointAmount(int pointAmount) {
         this.pointAmount = pointAmount;
+    }
+
+
+
+    //trying a new method via hashmaps, looks terrible but more efficient
+    @Override
+    public String toJsonString() throws Exception {
+        Map<String, Object> tradeData = new HashMap<>();
+        tradeData.put("tradeName", getTradeName());
+        tradeData.put("creatorResidentId", getCreatorResidentId());
+        tradeData.put("pointAmount", getPointAmount());
+        tradeData.put("pointTradeId", getPointTradeId());
+        tradeData.put("description", getDescription());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jacksonData = objectMapper.writeValueAsString(tradeData);
+        return jacksonData;
     }
 }
