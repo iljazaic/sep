@@ -6,22 +6,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.CommunityTaskList;
+import sep.project.Models.AggregativeModels.CommunityTaskTemplateList;
 import sep.project.Models.AggregativeModels.GreenActionList;
+import sep.project.Models.AggregativeModels.GreenActionTemplateList;
 import sep.project.Models.AggregativeModels.PointTradeList;
 import sep.project.Models.AtomicModels.ClovervilleResident;
 import sep.project.Models.AtomicModels.CommunityGreenPoints;
 import sep.project.Models.AtomicModels.CommunityTask;
+import sep.project.Models.AtomicModels.CommunityTaskTemplate;
 import sep.project.Models.AtomicModels.GreenAction;
+import sep.project.Models.AtomicModels.GreenActionTemplate;
 import sep.project.Models.AtomicModels.PointTrade;
 import sep.project.Models.Interfaces.JsonManager;
 
@@ -38,7 +39,7 @@ public class ClovervillePersistenceService {
     private final static String pathToStorageDirectory = "./lib/storage";
 
     /**
-     * Converts that shit to a string array and saves
+     * Converts that thing to a string array and saves
      * 
      * @param value
      * @param filename
@@ -80,7 +81,8 @@ public class ClovervillePersistenceService {
         ArrayList<CommunityGreenPoints> list = mapper.readValue(jsonFile,
                 new TypeReference<ArrayList<CommunityGreenPoints>>() {
                 });
-        return !list.isEmpty() ? list.get(0) : new CommunityGreenPoints(0);
+        // in case something is wrong return new object
+        return !list.isEmpty() ? list.get(0) : new CommunityGreenPoints(0, 0);
     }
 
     /**
@@ -130,21 +132,58 @@ public class ClovervillePersistenceService {
         return list;
     }
 
+    public static CommunityTaskTemplateList loadCommunityTaskTemplates() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        File jsonFile = new File(pathToStorageDirectory.concat("/CommunityTaskTemplateList.json"));
+
+        CommunityTaskTemplateList list = new CommunityTaskTemplateList();
+
+        ArrayList<CommunityTaskTemplate> jsonList = mapper.readValue(jsonFile,
+                new TypeReference<ArrayList<CommunityTaskTemplate>>() {
+                });
+        list.setTemplateList(jsonList);
+        return list;
+    }
+
+    public static GreenActionTemplateList loadGreenActionTemplates() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        File jsonFile = new File(pathToStorageDirectory.concat("/GreenActionTemplateList.json"));
+
+        GreenActionTemplateList list = new GreenActionTemplateList();
+
+        ArrayList<GreenActionTemplate> jsonList = mapper.readValue(jsonFile,
+                new TypeReference<ArrayList<GreenActionTemplate>>() {
+                });
+        list.setTemplateList(jsonList);
+        return list;
+    }
+
     /**
      * general saving method makes the rest obsolete
+     * saves and published the data to persistence and or website
+     * 
      * 
      * @param listObject to save (must be aggregative class)
-     * @throws Exception (to shut up the jvm)
+     *                   the class is cast into object to generalize across 5
+     *                   classes
+     * @throws Exception (to shut up the compiler)
      * 
      */
     public static void saveList(Object listObject) throws Exception {
+        // i want to generalize. theres gonna be "raw types" so just ignore
+        @SuppressWarnings("rawtypes")
         List<Class> allowedClasses = new ArrayList<>();
         allowedClasses.add(CommunityTaskList.class);
         allowedClasses.add(GreenActionList.class);
         allowedClasses.add(ClovervilleResidentList.class);
         allowedClasses.add(PointTradeList.class);
         allowedClasses.add(CommunityGreenPoints.class);
+        allowedClasses.add(CommunityTaskTemplateList.class);
+        allowedClasses.add(GreenActionTemplateList.class);
         if (allowedClasses.contains(listObject.getClass())) {
+            // cast to the one and only
             String jsonList = ((JsonManager) listObject).toJsonString();
             writeStringToJsonFile(jsonList, "/%s.json".formatted(listObject.getClass().getSimpleName()));
         } else {

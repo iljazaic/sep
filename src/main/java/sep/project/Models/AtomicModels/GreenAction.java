@@ -11,9 +11,9 @@ public class GreenAction implements JsonManager {
     private Long actionId;
     private String description;
     private int pointValue;
-    private boolean approved; // to keep track of the stuff the admin hasnt yet approved
     private Long userId;
     private Instant timestamp;
+    private boolean pointsApplied;
 
     public GreenAction(String description, int pointValue, Long userId) {
         this.pointValue = pointValue;
@@ -22,21 +22,20 @@ public class GreenAction implements JsonManager {
         this.userId = userId;
         this.actionId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;// so theres no overlaps between the
                                                                                     // users
-        this.approved = false;
+        this.pointsApplied = false;
     }
 
     // for jackson to be able to pull from persistence
     public GreenAction() {
     };
 
-    public GreenAction(String description, int pointValue, Long userId, Boolean approved, Long actionId,
+    public GreenAction(String description, int pointValue, Long userId, Long actionId,
             Instant timestamp) {
         this.pointValue = pointValue;
         this.description = description;
         this.timestamp = timestamp;
         this.userId = userId;
         this.actionId = actionId;
-        this.approved = approved;
     }
 
     public Instant getTimestamp() {
@@ -45,14 +44,6 @@ public class GreenAction implements JsonManager {
 
     public Long getUserId() {
         return this.userId;
-    }
-
-    public void setApproved(boolean setTo) {
-        this.approved = setTo;
-    }
-
-    public boolean getApproved() {
-        return this.approved;
     }
 
     public Long getActionId() {
@@ -75,13 +66,21 @@ public class GreenAction implements JsonManager {
         this.pointValue = pointValue;
     }
 
+    public boolean getPointsApplied() {
+        return this.pointsApplied;
+    }
+
+    public void setPointsApplied(boolean value) {
+        this.pointsApplied = value;
+    }
+
     // to persist this boy
     @Override
     public String toJsonString() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"approved\":%s,\"userId\":%s}"
+        return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"userId\":%s,\"pointsApplied\":%s}"
                 .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
-                        Boolean.toString(approved), Long.toString(userId), mapper.writeValueAsString(timestamp));
+                        Long.toString(userId), mapper.writeValueAsString(timestamp), Boolean.toString(pointsApplied));
     }
 
 }

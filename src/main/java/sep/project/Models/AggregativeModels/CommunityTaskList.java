@@ -27,7 +27,7 @@ public class CommunityTaskList implements JsonManager {
         this.taskList = list;
     }
 
-    public void voidRemoveTaskList(CommunityTask task) {
+    public void removeTask(CommunityTask task) {
         for (CommunityTask communityTask : taskList) {
             if (task.equals(communityTask)) {
                 taskList.remove(task);

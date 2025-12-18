@@ -5,18 +5,18 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+  
 import sep.project.Models.Interfaces.JsonManager;
 
 public class PointTrade implements JsonManager {
     private String tradeName;
     private Long pointTradeId;
-    private Long creatorResidentId;
+    private String creatorResidentName;
     private String description;
     private int pointAmount;
 
-    public PointTrade(String tradeName, int pointAmount, String descString, Long creatorResidentId) {
-        this.creatorResidentId = creatorResidentId;
+    public PointTrade(String tradeName, int pointAmount, String descString, String creatorResidentName) {
+        this.creatorResidentName = creatorResidentName;
         this.pointAmount = pointAmount;
         this.description = descString;
         this.tradeName = tradeName;
@@ -28,12 +28,12 @@ public class PointTrade implements JsonManager {
     public PointTrade() {
     };
 
-    public PointTrade(String tradeName, int pointAmount, String description, Long creatorResident, Long pointTradeId) {
+    public PointTrade(String tradeName, int pointAmount, String description, String creatorResidentName, Long pointTradeId) {
         this.pointAmount = pointAmount;
         this.pointTradeId = pointTradeId;
         this.description = description;
         this.tradeName = tradeName;
-        this.creatorResidentId = creatorResident;
+        this.creatorResidentName = creatorResidentName;
     }
 
     public String getTradeName() {
@@ -48,12 +48,12 @@ public class PointTrade implements JsonManager {
         this.pointTradeId = pointTradeId;
     }
 
-    public Long getCreatorResidentId() {
-        return creatorResidentId;
+    public String getCreatorResidentNamee() {
+        return creatorResidentName;
     }
 
-    public void setCreatorResidentId(Long creatorResidentId) {
-        this.creatorResidentId = creatorResidentId;
+    public void setCreatorResidentId(String creatorResidentName) {
+        this.creatorResidentName = creatorResidentName;
     }
 
     public String getDescription() {
@@ -79,7 +79,7 @@ public class PointTrade implements JsonManager {
     public String toJsonString() throws Exception {
         Map<String, Object> tradeData = new HashMap<>();
         tradeData.put("tradeName", getTradeName());
-        tradeData.put("creatorResidentId", getCreatorResidentId());
+        tradeData.put("creatorResidentName", getCreatorResidentNamee());
         tradeData.put("pointAmount", getPointAmount());
         tradeData.put("pointTradeId", getPointTradeId());
         tradeData.put("description", getDescription());

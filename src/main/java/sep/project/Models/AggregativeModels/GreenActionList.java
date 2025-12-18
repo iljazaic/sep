@@ -22,9 +22,8 @@ public class GreenActionList implements JsonManager {
         return this.list;
     }
 
-    public void addGreenAction(GreenAction action) throws Exception {
+    public void addGreenAction(GreenAction action) {
         this.list.add(action);
-        ClovervillePersistenceService.saveList(this);
     }
 
     public void removeAction(GreenAction action) {

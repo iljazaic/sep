@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // how many points is MAX by default
   var maxPoints = 1000;
 
-  function showPoints(value) {
+  function showPoints(value, milestone) {
     // make sure it's a number
     if (typeof value === "string") {
       value = parseInt(value, 10);
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       totalText.textContent = "MAX";
       totalText.classList.add("points-total-max");
     } else {
-      totalText.textContent = "Current points: " + value + " / " + maxPoints;
+      totalText.textContent = "Current points: " + value + " / " + milestone;
       totalText.classList.remove("points-total-max");
     }
   }
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then(function (data) {
       console.log("Green points from server:", data);
-      showPoints(data.totalPoints);
+      showPoints(data[0].totalPoints, data[0].pointMilestone);
     })
     .catch(function (error) {
       console.log("Error fetching green points:", error);

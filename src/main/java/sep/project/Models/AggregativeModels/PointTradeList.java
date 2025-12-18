@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.effect.Light.Point;
 import sep.project.Models.AtomicModels.PointTrade;
 import sep.project.Models.Interfaces.JsonManager;
+import sep.project.Services.ClovervillePersistenceService;
 
 public class PointTradeList implements JsonManager {
     private ArrayList<PointTrade> list;
@@ -30,13 +31,10 @@ public class PointTradeList implements JsonManager {
         return this.list;
     }
 
-    /**
-     * Builds a json string to save
-     * 
-     * @return json formatted string :
-     *         formatted as array with objects
-     * @throws Exception
-     */
+    public void addTrade(PointTrade trade){
+        this.list.add(trade);
+    }
+
     @Override
     public String toJsonString() throws Exception {
         if (this.list.isEmpty())
