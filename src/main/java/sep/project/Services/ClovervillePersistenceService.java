@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import sep.project.Models.AggregativeModels.ClovervilleResidentList;
 import sep.project.Models.AggregativeModels.CommunityTaskList;
@@ -106,6 +107,7 @@ public class ClovervillePersistenceService {
 
     public static GreenActionList loadClovervilleGreenActionList() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
 
         File jsonFile = new File(pathToStorageDirectory.concat("/GreenActionList.json"));
 

@@ -144,7 +144,7 @@ public class AdminUIController {
 
         tradeIdCol.setCellValueFactory(new PropertyValueFactory<>("pointTradeId"));
         tradeNameCol.setCellValueFactory(new PropertyValueFactory<>("tradeName"));
-        tradeCreatorNameCol.setCellValueFactory(new PropertyValueFactory<>("creatroResidentName"));
+        tradeCreatorNameCol.setCellValueFactory(new PropertyValueFactory<>("creatorResidentName"));
         tradePointsCol.setCellValueFactory(new PropertyValueFactory<>("pointAmount"));
         tradeDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         tradeTable.setItems(getObservableTrades());

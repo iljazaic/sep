@@ -31,25 +31,28 @@ public class GreenActionList implements JsonManager {
             list.remove(action);
     }
 
-    public String getWeekLongActionListJson() throws Exception {
-        if (this.list.isEmpty())
-            return "[]";
-        StringBuilder jsonStringBuilder = new StringBuilder();
-        jsonStringBuilder.append("[\n");
-        for (GreenAction action : this.list) {
-            if (action.getTimestamp().isAfter(Instant.now().minus(7, ChronoUnit.DAYS))) {
-                String dataString = action.toJsonString();
-                jsonStringBuilder.append(dataString);
+public String getWeekLongActionListJson() {
+    StringBuilder json = new StringBuilder("[");
+    boolean first = true;
 
-                if (list.indexOf(action) != list.size() - 1)
-                    jsonStringBuilder.append(",\n");
-                else {
-                    jsonStringBuilder.append("\n]");
-                }
+    for (GreenAction action : this.list) {
+        try {
+            if (action.getTimestamp()
+                      .isAfter(Instant.now().minus(7, ChronoUnit.DAYS))) {
+
+                if (!first) json.append(",");
+                json.append(action.toJsonString());
+                first = false;
             }
+        } catch (Exception e) {
+            e.printStackTrace(); // log and skip bad record
         }
-        return jsonStringBuilder.toString();
     }
+
+    json.append("]");
+    return json.toString();
+}
+
 
     @Override
     public String toJsonString() throws Exception {
@@ -59,6 +62,7 @@ public class GreenActionList implements JsonManager {
         StringBuilder jsonStringBuilder = new StringBuilder();
         jsonStringBuilder.append("[\n");
         for (GreenAction action : this.list) {
+
             String dataString = action.toJsonString();
             jsonStringBuilder.append(dataString);
 

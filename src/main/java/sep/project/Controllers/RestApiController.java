@@ -45,7 +45,8 @@ public class RestApiController {
             });
             Spark.get("/greenActions", (request, response) -> {
                 response.type("application/json");
-                return greenActionList.toJsonString();
+                System.out.println("processing");
+                return greenActionList.getWeekLongActionListJson();
             });
             Spark.get("/communityTasks", (request, response) -> {
                 response.type("application/json");

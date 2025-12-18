@@ -48,7 +48,7 @@ public class PointTrade implements JsonManager {
         this.pointTradeId = pointTradeId;
     }
 
-    public String getCreatorResidentNamee() {
+    public String getCreatorResidentName() {
         return creatorResidentName;
     }
 
@@ -79,7 +79,7 @@ public class PointTrade implements JsonManager {
     public String toJsonString() throws Exception {
         Map<String, Object> tradeData = new HashMap<>();
         tradeData.put("tradeName", getTradeName());
-        tradeData.put("creatorResidentName", getCreatorResidentNamee());
+        tradeData.put("creatorResidentName", getCreatorResidentName());
         tradeData.put("pointAmount", getPointAmount());
         tradeData.put("pointTradeId", getPointTradeId());
         tradeData.put("description", getDescription());

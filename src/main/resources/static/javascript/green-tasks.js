@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    fetch("/api/communityTasks")
+    fetch("/api/greenActions")
         .then(function (response) {
             return response.json();
         })
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var meta = document.createElement("p");
                 meta.className = "task-meta";
-                meta.textContent = "Reward: " + task.pointReward + " pts";
+                meta.textContent = "Reward: " + task.pointValue + " pts";
 
                 card.appendChild(indicator);
                 card.appendChild(title);

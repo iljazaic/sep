@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import sep.project.Models.Interfaces.JsonManager;
 
@@ -23,6 +24,8 @@ public class GreenAction implements JsonManager {
         this.actionId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;// so theres no overlaps between the
                                                                                     // users
         this.pointsApplied = false;
+
+        this.timestamp = Instant.now();
     }
 
     // for jackson to be able to pull from persistence
@@ -78,9 +81,17 @@ public class GreenAction implements JsonManager {
     @Override
     public String toJsonString() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return "{\"actionId\":%s,\"description\":\"%s\",\"pointValue\":%s,\"userId\":%s,\"pointsApplied\":%s}"
-                .formatted(Long.toString(actionId), description, Integer.toString(pointValue),
-                        Long.toString(userId), mapper.writeValueAsString(timestamp), Boolean.toString(pointsApplied));
+        String safeDescription = mapper.writeValueAsString(description);
+        mapper.registerModule(new JavaTimeModule());
+        return "{\"actionId\":%s,\"description\":%s,\"pointValue\":%s,\"userId\":%s,\"timestamp\":%s,\"pointsApplied\":%s}"
+                .formatted(
+                        actionId,
+                        safeDescription,
+                        pointValue,
+                        userId,
+                        mapper.writeValueAsString(timestamp),
+                        pointsApplied);
+
     }
 
 }

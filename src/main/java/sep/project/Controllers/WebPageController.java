@@ -24,10 +24,27 @@ public class WebPageController {
                 response.type("text/html");
                 return WebPageService.renderHtml("index.html");
             });
-            Spark.get("/about", (request, response) -> {
+            Spark.get("/aboutus", (request, response) -> {
                 response.type("text/html");
                 return WebPageService.renderHtml("aboutus.html");
             });
+            Spark.get("/contact", (request, response) -> {
+                response.type("text/html");
+                return WebPageService.renderHtml("contact.html");
+            });
+            Spark.get("/green-points", (request, response) -> {
+                response.type("text/html");
+                return WebPageService.renderHtml("green-points.html");
+            });
+            Spark.get("/green-tasks", (request, response) -> {
+                response.type("text/html");
+                return WebPageService.renderHtml("green-tasks.html");
+            });
+            Spark.get("/task-trades", (request, response) -> {
+                response.type("text/html");
+                return WebPageService.renderHtml("task-trades.html");
+            });
+
         });
     }
 
