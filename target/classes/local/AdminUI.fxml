@@ -58,7 +58,6 @@
                             </TableView>
                             <HBox alignment="BOTTOM_LEFT" spacing="20">
                                 <Button onAction="#handleCreateUser" style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;" text="ADD" />
-                                <Button onAction="#handleEditPoints" style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;" text="EDIT" />
                                 <Region HBox.hgrow="ALWAYS" />
                                 <Button onAction="#handleRemoveUser" style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-size: 14px; -fx-background-radius: 0; -fx-border-width: 0;" text="REMOVE" />
                             </HBox>
@@ -138,7 +137,7 @@
                             </TableView>
                             <HBox alignment="CENTER_RIGHT" spacing="10">
                                 <Button onAction="#handleCreateTaskTemplate" style="-fx-background-color: #55b740; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;" text="CREATE TEMPLATE" />
-                                <Button onAction="#handleRemoveTaskTemplate" style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;" text="REMOVE SELECTED TASK" />
+                                <Button onAction="#handleRemoveTaskTemplate" style="-fx-background-color: #212121; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 0; -fx-border-width: 0;" text="REMOVE SELECTED TEMPLATE" />
                             </HBox>
                         </VBox>
                     </content>
@@ -203,7 +202,7 @@
                 </Tab>
                 <Tab text="PUBLISH TO WEBSITE">
                     <content>
-                        <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
+                        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #0d4a3b; -fx-padding: 20;">
                             <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="PUBLISH OPTIONS">
                                 <font>
                                     <Font size="20.0" />

@@ -1,4 +1,4 @@
 [
-{"actionId":6293395575276193110,"description":"T1","pointValue":33,"userId":4241,"timestamp":1766101424.103895100,"pointsApplied":false},
-{"actionId":7609378852473225922,"description":"GreenActionDescription","pointValue":100,"userId":100,"timestamp":1766101482.395404200,"pointsApplied":false}
+{"actionId":6293395575276193110,"description":"T1","pointValue":33,"userId":4241,"timestamp":1766101424.103895100,"pointsApplied":true},
+{"actionId":7609378852473225922,"description":"GreenActionDescription","pointValue":100,"userId":100,"timestamp":1766101482.395404200,"pointsApplied":true}
 ]

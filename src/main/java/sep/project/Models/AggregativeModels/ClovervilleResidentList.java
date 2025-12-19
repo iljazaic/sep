@@ -28,6 +28,15 @@ public class ClovervilleResidentList implements JsonManager {
         return null;
     }
 
+    public void addPointsToResidentById(Long id, int points) {
+        for (ClovervilleResident clovervilleResident : residentList) {
+            if (clovervilleResident.getResidentId() == id) {
+                clovervilleResident.editPersonalPoints(points);
+                return;
+            }
+        }
+    }
+
     public void addResident(ClovervilleResident resident) {
         residentList.add(resident);
         setResidentList(residentList);
@@ -42,14 +51,14 @@ public class ClovervilleResidentList implements JsonManager {
         return null;
     }
 
-    public void removeResident(ClovervilleResident resident){
+    public void removeResident(ClovervilleResident resident) {
         if (residentList.contains(resident))
             residentList.remove(resident);
     }
 
-    public void editResidentPersonalPoints(Long userId, int pointAmount){
+    public void editResidentPersonalPoints(Long userId, int pointAmount) {
         for (ClovervilleResident clovervilleResident : residentList) {
-            if(clovervilleResident.getResidentId()==userId){
+            if (clovervilleResident.getResidentId() == userId) {
                 clovervilleResident.editPersonalPoints(pointAmount);
                 return;
             }

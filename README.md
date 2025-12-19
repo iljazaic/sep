@@ -1,11 +1,3 @@
-# Hi
-### Dont touch the code yet
-##
-### just look around, get it into ur intellij
-then ask/complain/etc
-
-## important to note
-
-### every atomic class MUST have a toJsonString() method
-### every aggregative class MUST have a toJsonString() method
-### persistence must be structured as load -> save;
+# i deliberately chose interfaces over standard inheritance since i only need 1 common method across classes
+# build with mvn package
+# run with java -cp target/sep-app-0.1.jar sep.project.ApplicationStart

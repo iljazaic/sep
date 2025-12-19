@@ -676,6 +676,23 @@ public class AdminUIController {
     @FXML
     private void publishCommunityTasksAndActions() throws Exception {
         ClovervillePersistenceService.saveList(greenActionList);
+
+        //apply all the new tasks to the personal points
+        for (GreenAction action : greenActionList.getGreeActionList()) {
+            if (action.getUserId() != null && !action.getPointsApplied()) {
+                residentList.addPointsToResidentById(action.getUserId(), action.getPointValue());
+                action.setPointsApplied(true);
+            }
+        }
+        ClovervillePersistenceService.saveList(residentList);
+
+        int sum = 0;
+        for (ClovervilleResident resident : residentList.getResidentList()) {
+            sum += resident.getPersonalPoints();
+        }
+        communityPoints.setTotalPoints(sum);
+        ClovervillePersistenceService.saveList(communityPoints);
+
         ClovervillePersistenceService.saveList(communityTaskList);
     }
 
