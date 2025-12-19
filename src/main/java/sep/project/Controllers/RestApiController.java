@@ -58,10 +58,6 @@ public class RestApiController {
                 return communityGreenPoints.toJsonString();
             });
 
-            Spark.get("/residents", (request, response) -> {
-                response.type("application/json");
-                return clovervilleResidentList.toJsonString();
-            });// redundant btw
         });
     }
 
